@@ -1,0 +1,17 @@
+vi:
+  activerecord:
+    models:
+      user: "Customer"
+    attributes:
+      user:
+        email: "Email address"
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              blank: "Email không thể rỗng"
+  services:
+    authenticate_service:
+      register:
+        exist_user: 'Email này đã tồn tai'
