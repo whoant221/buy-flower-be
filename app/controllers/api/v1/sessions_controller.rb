@@ -8,7 +8,7 @@ module Api
             token: authenticate.token
           }, formats: [:json], status: :ok
         end
-      rescue AuthenticateService::InvalidCredentialsError => e
+      rescue AuthenticateService::InvalidCredentials => e
         json_response({message: e.message}, :service_unavailable)
       end
 
