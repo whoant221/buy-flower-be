@@ -16,9 +16,6 @@ module Api
           json_response({message: e.message}, :ok)
         end
 
-        rescue_from AuthenticateService::InvalidCredentialsError do |e|
-          json_response({message: e.message}, :unauthorized)
-        end
       end
     end
   end

@@ -8,7 +8,8 @@ module Api
             token: authenticate.token
           }, formats: [:json], status: :ok
         end
-
+      rescue AuthenticateService::InvalidCredentialsError => e
+        json_response({message: e.message}, :service_unavailable)
       end
 
       def register
