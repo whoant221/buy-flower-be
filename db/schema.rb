@@ -16,11 +16,11 @@ ActiveRecord::Schema.define(version: 2022_10_24_151402) do
   enable_extension "plpgsql"
 
   create_table "users", force: :cascade do |t|
-    t.string "email", null: false
-    t.string "password_digest", null: false
-    t.string "name", null: false
-    t.string "phone_number", null: false
-    t.string "address", null: false
+    t.string "email"
+    t.string "password_digest"
+    t.string "name"
+    t.string "phone_number"
+    t.string "address"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_users_on_email", unique: true

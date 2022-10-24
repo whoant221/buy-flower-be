@@ -11,7 +11,14 @@ vi:
           attributes:
             email:
               blank: "Email không thể rỗng"
+              invalid: "Email không đúng định dạng"
+            password_digest:
+              blank: 'Vui lòng nhâp password'
+            name:
+              blank: 'Vui lòng nhập họ tên'
   services:
     authenticate_service:
       register:
         exist_user: 'Email này đã tồn tai'
+      login:
+        invalid_credential: 'Đăng nhập không thành công, vui lòng thử lại'
