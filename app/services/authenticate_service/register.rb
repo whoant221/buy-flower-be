@@ -12,7 +12,11 @@ module AuthenticateService
     private
 
     def exist?
-      User.find_by(email: @params['email'])
+      user
+    end
+
+    def user
+      @user ||= User.find_by(email: @params['email'])
     end
   end
 end

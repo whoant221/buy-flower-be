@@ -15,7 +15,7 @@ module Api
       def register
         AuthenticateService::Register.new(params: user_params).create
       rescue Constants::UserExists => e
-        json_response({message: e.message}, status: :not_found)
+        json_response({message: e.message}, :unprocessable_entity)
       end
 
       private

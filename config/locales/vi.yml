@@ -22,3 +22,6 @@ vi:
         exist_user: 'Email này đã tồn tai'
       login:
         invalid_credential: 'Đăng nhập không thành công, vui lòng thử lại'
+    admin_authenticate_service:
+      login:
+        invalid_credential: 'Đăng nhập không thành công, vui lòng thử lại'
