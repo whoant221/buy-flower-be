@@ -2,7 +2,7 @@ module Api
   module V1
     class SessionsController < ApiController
       def login
-        authenticate = AuthenticateService::Login.new(email: user_params['email'], password: user_params['password'])
+        authenticate = AuthenticateService::Login.new(email: user_params[:email], password: user_params[:password])
         if authenticate.success?
           render 'login', locals: {
             token: authenticate.token

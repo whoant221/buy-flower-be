@@ -7,18 +7,18 @@ module AdminAuthenticateService
     end
 
     def success?
-      admin
+      user
     end
 
     def token
-      @token ||= (success? ? Token.generate(admin: admin) : nil)
+      @token ||= (success? ? Token.generate(user: user) : nil)
     end
 
-    def admin
-      @admin ||= Admin.find_by(username: @username)
-      raise Constants::InvalidCredentials, I18n.t('services.admin_authenticate_service.login.invalid_credential') unless @admin && @admin.authenticate(@password)
+    def user
+      @user ||= Admin.find_by(username: @username)
+      raise Constants::InvalidCredentials, I18n.t('services.admin_authenticate_service.login.invalid_credential') unless @user && @user.authenticate(@password)
 
-      @admin
+      @user
     end
   end
 end

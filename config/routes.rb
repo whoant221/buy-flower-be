@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
-      resources :sessions do
+      resources :sessions, only: [] do
         collection do
           post :login
           post :register
@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     end
 
     namespace :admin do
-      resources :sessions do
+      resources :sessions, only: [] do
         collection do
           post :login
         end

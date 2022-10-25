@@ -1,8 +1,8 @@
 module AdminAuthenticateService
   class Token
-    def self.generate(admin:)
+    def self.generate(user:)
       payload = {
-        admin_id: admin.id
+        admin_id: user.id
       }
 
       JsonWebToken.encode(payload)

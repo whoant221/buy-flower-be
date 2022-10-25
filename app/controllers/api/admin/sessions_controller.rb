@@ -11,7 +11,6 @@ module Api
       rescue Constants::InvalidCredentials => e
         json_response({message: e.message}, :service_unavailable)
       end
-
     end
   end
 end
