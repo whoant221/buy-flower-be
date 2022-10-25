@@ -38,7 +38,7 @@ module BuyFlower
     config.api_only = true
     config.i18n.available_locales = [:en, :vi]
     config.i18n.default_locale = :vi
-
+    config.eager_load_paths << Rails.root.join('lib')
 
   end
 end
