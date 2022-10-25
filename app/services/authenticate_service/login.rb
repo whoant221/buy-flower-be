@@ -15,7 +15,7 @@ module AuthenticateService
 
     def user
       @user ||= User.find_by(email: @email)
-      raise AuthenticateService::InvalidCredentials, I18n.t('services.authenticate_service.login.invalid_credential') unless @user && @user.authenticate(@password)
+      raise Constants::InvalidCredentials, I18n.t('services.authenticate_service.login.invalid_credential') unless @user && @user.authenticate(@password)
 
       @user
     end

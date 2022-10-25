@@ -8,12 +8,14 @@ module Api
             token: authenticate.token
           }, formats: [:json], status: :ok
         end
-      rescue AuthenticateService::InvalidCredentials => e
+      rescue Constants::InvalidCredentials => e
         json_response({message: e.message}, :service_unavailable)
       end
 
       def register
         AuthenticateService::Register.new(params: user_params).create
+      rescue Constants::UserExists => e
+        json_response({message: e.message}, status: :not_found)
       end
 
       private

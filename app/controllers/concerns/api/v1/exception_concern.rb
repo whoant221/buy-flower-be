@@ -11,11 +11,7 @@ module Api
         # rescue_from ActiveRecord::RecordInvalid do |e|
         #   json_response({ message: e.message }, :unprocessable_entity)
         # end
-
-        rescue_from AuthenticateService::RegisterUserError do |e|
-          json_response({message: e.message}, :ok)
-        end
-
+        
       end
     end
   end
