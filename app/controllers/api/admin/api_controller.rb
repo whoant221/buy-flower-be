@@ -3,6 +3,7 @@ module Api
     class ApiController < ActionController::API
       include ResponseConcern
       include ExceptionConcern
+
     end
   end
 end

@@ -10,12 +10,12 @@ module AuthenticateService
     end
 
     def token
-      @token ||= (success? ? Token.generate(user: user) : nil )
+      @token ||= (success? ? Token.generate(user: user) : nil)
     end
 
     def user
       @user ||= User.find_by(email: @email)
-      raise Constants::InvalidCredentials, I18n.t('services.authenticate_service.login.invalid_credential') unless @user && @user.authenticate(@password)
+      raise Exceptions::InvalidCredentials, I18n.t('services.authenticate_service.login.invalid_credential') unless @user && @user.authenticate(@password)
 
       @user
     end

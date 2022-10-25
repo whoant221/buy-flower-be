@@ -5,7 +5,7 @@ module AuthenticateService
     end
 
     def create
-      raise Constants::UserExists, I18n.t('services.authenticate_service.register.exist_user') if exist?
+      raise Exceptions::RecordExists, I18n.t('services.authenticate_service.register.exist_user') if exist?
       User.create!(@params)
     end
 
