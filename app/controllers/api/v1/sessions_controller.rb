@@ -3,19 +3,16 @@ module Api
     class SessionsController < ApiController
       def login
         authenticate = AuthenticateService::Login.new(email: user_params[:email], password: user_params[:password])
+
         if authenticate.success?
           render 'login', locals: {
             token: authenticate.token
           }, formats: [:json], status: :ok
         end
-      rescue Exceptions::InvalidCredentials => e
-        json_response({ message: e.message }, :service_unavailable)
       end
 
       def register
         AuthenticateService::Register.new(params: user_params).create
-      rescue Exceptions::RecordExists => e
-        json_response({ message: e.message }, :unprocessable_entity)
       end
 
       private

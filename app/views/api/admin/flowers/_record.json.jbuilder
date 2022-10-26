@@ -1,0 +1,9 @@
+json.id flower.id
+json.name flower.name
+json.color flower.color
+json.original_price flower.original_price
+json.sale_price flower.sale_price
+json.description flower.description
+json.images flower.images
+json.count flower.count
+json.category_id flower.category_id

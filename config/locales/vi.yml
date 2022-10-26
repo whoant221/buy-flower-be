@@ -4,22 +4,62 @@ vi:
       user: "Customer"
     attributes:
       user:
-        email: "Email address"
+        email: 'Email'
+        password: 'Mật khẩu'
+        phone_number: 'Số điện thoại'
+        name: 'Họ tên'
+        address: 'Địa chỉ'
+        password_confirmation: 'Mật khẩu nhập lại'
+      category:
+        title: 'Loại hoa'
+      flower:
+        name: 'Hoa'
+        color: 'Màu'
+        category: 'Loại hoa'
+        count: 'Số lượng'
+        sale_price: 'Giá giảm giá'
+        original_price: 'Giá gốc'
     errors:
       models:
         user:
           attributes:
             email:
-              blank: "Email không thể rỗng"
-              invalid: "Email không đúng định dạng"
-            password_digest:
-              blank: 'Vui lòng nhâp password'
+              taken: 'này đã tồn tại'
+            password:
+              blank: 'trống'
+            phone_number:
+              blank: 'trống'
             name:
-              blank: 'Vui lòng nhập họ tên'
+              blank: 'trống'
+            address:
+              blank: 'trống'
+            password_confirmation:
+              confirmation: 'không khớp với mật khẩu'
         category:
           attributes:
             title:
-              record_invalid: ""
+              blank: 'trống'
+              taken: 'này đã tồn tại'
+        flower:
+          attributes:
+            name:
+              taken: 'đã tồn tại'
+              blank: 'trống'
+            color:
+              inclusion: 'ngoài danh sách'
+            category:
+              required: 'cần phải có'
+            count:
+              blank: 'trống'
+            sale_price:
+              blank: 'trống'
+              greater_than_or_equal_to: 'lớn hơn hoặc bằng 0'
+            original_price:
+              blank: 'trống'
+              greater_than_or_equal_to: 'lớn hơn hoặc bằng 0'
+
+      messages:
+  #        record_invalid: 'không hợp lệ'
   services:
     authenticate_service:
       register:
@@ -30,6 +70,8 @@ vi:
       login:
         invalid_credential: 'Đăng nhập không thành công, vui lòng thử lại'
     admin_category_service:
-      category:
-        exists: 'Loại hoa này đã tồn tại'
-        not_exists: 'Loại hoa này không tồn tại'
+      exists: 'Loại hoa này đã tồn tại'
+      not_exists: 'Loại hoa này không tồn tại'
+    admin_flower_service:
+      exists: 'Hoa này đã tồn tại'
+      not_exists: 'Hoa này không tồn tại'

@@ -1,22 +1,29 @@
 module AdminCategoryService
   class Client
-    def initialize
-
+    def initialize(params: {}, id: nil)
+      @params = params
+      @id = id
     end
 
-    def create(params)
-      create_category(params)
+    def create
+      Category.create!(@params)
     end
 
-    private
+    def update
+      category.update!(@params)
 
-    def create_category(params)
-      raise Exceptions::RecordExists, I18n.t('services.admin_category_service.category.exists') if exists_title?(params[:title])
-      Category.create!(params)
+      category
     end
 
-    def exists_title?(title)
-      Category.search_title(title).present?
+    def show
+      category
+    end
+
+    def category
+      @category ||= Category.find_by(id: @id)
+      raise ActiveRecord::RecordNotFound, I18n.t('services.admin_category_service.not_exists') unless @category
+
+      @category
     end
 
   end
