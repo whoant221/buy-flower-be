@@ -17,7 +17,9 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :categories, only: [:create, :index]
+      resources :categories, only: [:create, :index, :show, :update]
+
+      resources :flowers, only: [:create, :update, :index, :show]
     end
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

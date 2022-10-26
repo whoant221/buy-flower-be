@@ -3,5 +3,5 @@ class Exceptions
 
   class RecordExists < StandardError; end
 
-  class RecordNotExists < StandardError; end
+  class RecordNotExists < ActiveRecord::RecordNotFound; end
 end

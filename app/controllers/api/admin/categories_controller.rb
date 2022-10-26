@@ -2,17 +2,33 @@ module Api
   module Admin
     class CategoriesController < ApiController
       def create
-        category = AdminCategoryService::Client.new.create(category_params)
+        category = AdminCategoryService::Client.new(params: category_params).create
+
         render 'create', locals: {
           category: category,
         }, formats: [:json], status: :created
-        # rescue Exceptions::RecordExists => e
-        #   json_response({ message: e.message }, :unprocessable_entity)
       end
 
       def index
-        category = Category.find(params[:id])
+        categories = Category.all
+
         render 'index', locals: {
+          categories: categories,
+        }, formats: [:json], status: :ok
+      end
+
+      def update
+        category = AdminCategoryService::Client.new(params: category_params, id: params[:id]).update
+
+        render 'update', locals: {
+          category: category,
+        }, formats: [:json], status: :created
+      end
+
+      def show
+        category = AdminCategoryService::Client.new(id: params[:id]).show
+
+        render 'show', locals: {
           category: category,
         }, formats: [:json], status: :ok
       end
