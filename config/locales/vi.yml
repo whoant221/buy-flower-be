@@ -16,7 +16,6 @@ vi:
         name: 'Hoa'
         color: 'Màu'
         category: 'Loại hoa'
-        count: 'Số lượng'
         sale_price: 'Giá giảm giá'
         original_price: 'Giá gốc'
     errors:
@@ -49,8 +48,6 @@ vi:
               inclusion: 'ngoài danh sách'
             category:
               required: 'cần phải có'
-            count:
-              blank: 'trống'
             sale_price:
               blank: 'trống'
               greater_than_or_equal_to: 'lớn hơn hoặc bằng 0'

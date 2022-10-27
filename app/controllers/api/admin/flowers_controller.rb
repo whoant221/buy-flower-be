@@ -37,7 +37,7 @@ module Api
       private
 
       def flower_params
-        params.permit(:name, :color, :original_price, :sale_price, :description, :category_id, :count, images: [])
+        params.permit(:name, :color, :original_price, :sale_price, :description, :category_id, images: [])
       end
 
     end
