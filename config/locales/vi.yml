@@ -18,6 +18,10 @@ vi:
         category: 'Loại hoa'
         sale_price: 'Giá giảm giá'
         original_price: 'Giá gốc'
+      flower_detail:
+        expiration_at: 'Ngày hết hạn'
+        count: 'Số lượng nhập'
+        used_count: 'Số lượng sử dụng'
     errors:
       models:
         user:
@@ -54,6 +58,18 @@ vi:
             original_price:
               blank: 'trống'
               greater_than_or_equal_to: 'lớn hơn hoặc bằng 0'
+        flower_detail:
+          attributes:
+            expiration_at:
+              blank: 'trống'
+              less_or_equal_than_current: "không được bé hơn hoặc bằng hiện tại"
+            count:
+              blank: 'trống'
+              greater_than: 'lớn hơn 0'
+            used_count:
+              blank: 'trống'
+              greater_than_or_equal_to: 'lớn hơn hoặc bằng 0'
+              greater_than_count: 'không được lớn hơn số lượng nhập'
 
       messages:
   #        record_invalid: 'không hợp lệ'
@@ -72,3 +88,5 @@ vi:
     admin_flower_service:
       exists: 'Hoa này đã tồn tại'
       not_exists: 'Hoa này không tồn tại'
+    admin_flower_detail_service:
+      successfully: 'Nhập hoa thành công'

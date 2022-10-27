@@ -6,3 +6,4 @@ json.sale_price flower.sale_price
 json.description flower.description
 json.images flower.images
 json.category_id flower.category_id
+json.count flower.remaining_amount
