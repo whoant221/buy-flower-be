@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  flower: one
+  count: 1
+  expiration_at: 2022-10-27 23:32:51
+
+two:
+  flower: two
+  count: 1
+  expiration_at: 2022-10-27 23:32:51
