@@ -1,0 +1,1 @@
+json.partial! 'record', shopping_cart: shopping_cart

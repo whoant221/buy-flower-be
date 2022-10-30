@@ -1,20 +1,7 @@
 Rails.application.routes.draw do
+
   namespace :api do
-    namespace :admin do
-      get 'flower_details/create'
-      get 'flower_details/update'
-      get 'flower_details/index'
-      get 'flower_details/show'
-    end
-  end
-  namespace :api do
-    namespace :admin do
-      get 'flower_detail/create'
-      get 'flower_detail/index'
-      get 'flower_detail/show'
-    end
-  end
-  namespace :api do
+
     namespace :v1 do
       resources :sessions, only: [] do
         collection do
@@ -22,6 +9,8 @@ Rails.application.routes.draw do
           post :register
         end
       end
+
+      resources :shopping_carts, only: [:index, :create, :destroy]
 
     end
 

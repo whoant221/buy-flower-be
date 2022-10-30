@@ -18,6 +18,13 @@ module Api
         precondition_failed
       ]
 
+      def render_pundit_errors(exception)
+        policy_name = exception.policy.class.to_s.underscore
+        message = I18n.t("#{policy_name}.#{exception.query}", scope: 'pundit', default: :default)
+
+        render json: [{ message: message }], status: :forbidden
+      end
+
       def render_record_invalid(exception)
         render json: exception.record.errors.to_a.map { |m| { message: m } },
                status: :unprocessable_entity

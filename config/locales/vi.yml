@@ -1,4 +1,13 @@
 vi:
+  controller:
+    concerns:
+      api:
+        v1:
+          render_concern:
+            unauthorized: 'Không đủ quyền để truy cập'
+  
+  
+  
   activerecord:
     models:
       user: "Customer"
@@ -22,12 +31,17 @@ vi:
         expiration_at: 'Ngày hết hạn'
         count: 'Số lượng nhập'
         used_count: 'Số lượng sử dụng'
+      shopping_cart:
+        flower: 'Mã hoa'
+        amount: 'Số lượng'
     errors:
       models:
         user:
           attributes:
             email:
               taken: 'này đã tồn tại'
+              invalid: 'không đúng định dạng'
+              blank: 'trống'
             password:
               blank: 'trống'
             phone_number:
@@ -70,7 +84,12 @@ vi:
               blank: 'trống'
               greater_than_or_equal_to: 'lớn hơn hoặc bằng 0'
               greater_than_count: 'không được lớn hơn số lượng nhập'
-
+        shopping_cart:
+          attributes:
+            flower:
+              required: 'không tồn tại'
+            amount:
+              not_a_number: 'không phải là số'
       messages:
   #        record_invalid: 'không hợp lệ'
   services:
@@ -90,3 +109,8 @@ vi:
       not_exists: 'Hoa này không tồn tại'
     admin_flower_detail_service:
       successfully: 'Nhập hoa thành công'
+  pundit:
+    default: 'Hành động bị giới hạn'
+
+  custom_message:
+    invalid_token: 'Token không hợp lệ'
