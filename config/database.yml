@@ -74,8 +74,4 @@ test:
 #
 production:
   <<: *default
-  database: buy_flower_production
-  host: <%= ENV['DB_HOST'] %>
-  username: <%= ENV['DB_USERNAME'] %>
-  password: <%= ENV['DB_PASSWORD'] %>
-  port: <%= ENV['DB_PORT'] %>
+  url: <%= ENV['DB_URL'] %>
