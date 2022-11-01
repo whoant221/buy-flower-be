@@ -1,0 +1,9 @@
+Dockerfile
+.dockerignore
+.git
+.idea
+README.md
+tmp
+log
+/config/master.key
+/config/application.yml
