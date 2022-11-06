@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: service.buy-flower-be-service
+  namespace: buy-flower-staging
+spec:
+  selector:
+    app: buy-flower-be
+  ports:
+    - port: 3001
+      targetPort: 3000
+      nodePort: 30001
+  type: NodePort

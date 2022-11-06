@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: buy-flower-be-deployment
+  namespace: buy-flower-staging
+  labels:
+    app: buy-flower-be
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: buy-flower-be-deployment
+      labels:
+        app: buy-flower-be
+    spec:
+      containers:
+        - name: buy-flower-be
+          image: ghcr.io/whoant221/buy-flower-be:VERSION
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3000
+          resources:
+            limits:
+              memory: "200Mi"
+              cpu: "200m"
+            requests:
+              memory: "200Mi"
+              cpu: "200m"
+          envFrom:
+            - secretRef:
+                { name: secret.buy-flower }
+            - configMapRef:
+                { name: configmap.buy-flower }
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: buy-flower-be
