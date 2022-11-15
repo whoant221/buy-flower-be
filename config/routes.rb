@@ -12,6 +12,16 @@ Rails.application.routes.draw do
 
       resources :shopping_carts, only: [:index, :create, :destroy]
 
+      resources :orders, only: [:create, :show, :destroy] do
+        collection do
+          get :init_order
+          get :pending_order
+          get :processing_order
+          get :successful_order
+          get :cancelled_order
+        end
+      end
+
     end
 
     namespace :admin do
