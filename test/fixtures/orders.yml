@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  original_price: 9.99
+  sale_price: 9.99
+  receive_address: MyString
+  note: MyString
+  state: MyString
+  user: one
+
+two:
+  original_price: 9.99
+  sale_price: 9.99
+  receive_address: MyString
+  note: MyString
+  state: MyString
+  user: two
