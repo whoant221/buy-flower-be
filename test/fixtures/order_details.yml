@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  order: one
+  flower_detail: one
+  amount: 1
+  price: 9.99
+
+two:
+  order: two
+  flower_detail: two
+  amount: 1
+  price: 9.99

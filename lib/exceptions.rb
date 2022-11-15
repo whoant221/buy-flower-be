@@ -6,4 +6,6 @@ class Exceptions
   class RecordNotExists < ActiveRecord::RecordNotFound; end
 
   class Unauthorized < StandardError; end
+
+  class OrderInvalid < StandardError; end
 end

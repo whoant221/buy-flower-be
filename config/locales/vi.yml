@@ -34,6 +34,10 @@ vi:
       shopping_cart:
         flower: 'Mã hoa'
         amount: 'Số lượng'
+      order:
+        original_price: 'Giá gốc'
+        sale_price: 'Giá giảm giá'
+        receive_address: 'Địa chỉ nhận'
     errors:
       models:
         user:
@@ -90,6 +94,14 @@ vi:
               required: 'không tồn tại'
             amount:
               not_a_number: 'không phải là số'
+        order:
+          attributes:
+            original_price:
+              blank: 'trống'
+            sale_price:
+              blank: 'trống'
+            receive_address:
+              blank: 'trống'
       messages:
   #        record_invalid: 'không hợp lệ'
   services:
@@ -109,6 +121,9 @@ vi:
       not_exists: 'Hoa này không tồn tại'
     admin_flower_detail_service:
       successfully: 'Nhập hoa thành công'
+    order_service:
+      not_exists: 'Đơn hàng không tồn tại'
+      cannot_cancel: 'Đơn hàng này không thể hủy'
   pundit:
     default: 'Hành động bị giới hạn'
 
