@@ -1,6 +1,9 @@
 class Flower < ApplicationRecord
-  belongs_to :category
+  has_many :category_flowers
+  has_many :category, through: :category_flowers
+
   has_many :shopping_carts
+  
   has_many :users, through: :shopping_carts
   has_many :flower_details
 
