@@ -6,11 +6,11 @@ module AdminCategoryService
     end
 
     def create
-      Category.create!(@params)
+      Category.create!(params)
     end
 
     def update
-      category.update!(@params)
+      category.update!(params)
 
       category
     end
@@ -18,6 +18,10 @@ module AdminCategoryService
     def show
       category
     end
+
+    private
+
+    attr_accessor :params, :id
 
     def category
       @category ||= Category.find_by(id: @id)
