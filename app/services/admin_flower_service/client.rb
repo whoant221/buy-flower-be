@@ -7,7 +7,7 @@ module AdminFlowerService
     end
 
     def create
-      Flower.create!(@params)
+      Flower.create!(params)
     end
 
     def show
@@ -15,15 +15,18 @@ module AdminFlowerService
     end
 
     def update
-      flower.update!(@params)
-
+      flower.update!(params)
       flower
+    rescue Exception
+      raise Exceptions::CategoryInvalid, I18n.t('services.admin_flower_service.invalid_category')
     end
 
     private
 
+    attr_accessor :params, :id
+
     def flower
-      flower ||= Flower.find_by(id: @id)
+      flower ||= Flower.find_by(id: id)
       raise ActiveRecord::RecordNotFound, I18n.t('services.admin_flower_service.not_exists') unless flower
 
       flower

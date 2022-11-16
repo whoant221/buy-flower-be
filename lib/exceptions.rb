@@ -8,4 +8,6 @@ class Exceptions
   class Unauthorized < StandardError; end
 
   class OrderInvalid < StandardError; end
+
+  class CategoryInvalid < StandardError; end
 end

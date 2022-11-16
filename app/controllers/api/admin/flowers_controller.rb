@@ -32,12 +32,13 @@ module Api
         render 'update', locals: {
           flower: flower
         }, formats: [:json], status: :accepted
+
       end
 
       private
 
       def flower_params
-        params.permit(:name, :color, :original_price, :sale_price, :description, :category_id, images: [])
+        params.permit(:name, :color, :original_price, :sale_price, :description, images: [], category_ids: [])
       end
 
     end
