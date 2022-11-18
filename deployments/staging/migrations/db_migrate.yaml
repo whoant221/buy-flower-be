@@ -1,0 +1,30 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: buy-flower-db-migrate
+  namespace: buy-flower-staging
+spec:
+  template:
+    metadata:
+      labels:
+        app: buy-flower-be
+    spec:
+      containers:
+        - name: buy-flower-be
+          image: ghcr.io/whoant221/buy-flower-be:VERSION
+          imagePullPolicy: IfNotPresent
+          command:
+            - rails
+            - db:migrate
+          envFrom:
+            - secretRef: { name: secret.buy-flower }
+            - configMapRef: { name: configmap.buy-flower }
+          resources:
+            limits:
+              memory: "300Mi"
+              cpu: "200m"
+            requests:
+              memory: "200Mi"
+              cpu: "100m"
+      restartPolicy: Never
+  backoffLimit: 1
