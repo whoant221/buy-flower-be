@@ -43,7 +43,7 @@ jobs:
           base64-kube-config: ${{ secrets.KUBE_CONFIG }}
       - name: Run migrate job
         run: |
-          chmod + x ./deployments/staging/migrations/migrate.sh
+          chmod +x ./deployments/staging/migrations/migrate.sh
           ./deployments/staging/migrations/migrate.sh ${{ env.IMAGE_VERSION }}
       - name: Run deploy app
         run: |
