@@ -41,7 +41,11 @@ jobs:
         uses: tale/kubectl-action@v1
         with:
           base64-kube-config: ${{ secrets.KUBE_CONFIG }}
-      - name: Make update_version_and_deploy executable
-        run: chmod +x ./deployments/staging/update_version_and_deploy.sh
-      - name: Deploy to K8s
-        run: ./deployments/staging/update_version_and_deploy.sh ${{ env.IMAGE_VERSION }}
+      - name: Run migrate job
+        run: |
+          chmod + x ./deployments/staging/migrations/migrate.sh
+          ./deployments/staging/migrations/migrate.sh ${{ env.IMAGE_VERSION }}
+      - name: Run deploy app
+        run: |
+          chmod +x ./deployments/staging/update_version_and_deploy.sh
+          ./deployments/staging/update_version_and_deploy.sh ${{ env.IMAGE_VERSION }}
