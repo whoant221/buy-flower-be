@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_16_073451) do
+ActiveRecord::Schema.define(version: 2022_11_19_181738) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -104,6 +104,30 @@ ActiveRecord::Schema.define(version: 2022_11_16_073451) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  create_table "voucher_orders", force: :cascade do |t|
+    t.bigint "voucher_id", null: false
+    t.bigint "order_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["order_id"], name: "index_voucher_orders_on_order_id"
+    t.index ["voucher_id"], name: "index_voucher_orders_on_voucher_id"
+  end
+
+  create_table "vouchers", force: :cascade do |t|
+    t.text "title"
+    t.text "content"
+    t.integer "limit_count"
+    t.string "code"
+    t.datetime "effective_at"
+    t.datetime "expiration_at"
+    t.decimal "discount"
+    t.decimal "threshold"
+    t.decimal "max_amount"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["code"], name: "index_vouchers_on_code"
+  end
+
   add_foreign_key "category_flowers", "categories"
   add_foreign_key "category_flowers", "flowers"
   add_foreign_key "flower_details", "flowers"
@@ -112,4 +136,6 @@ ActiveRecord::Schema.define(version: 2022_11_16_073451) do
   add_foreign_key "orders", "users"
   add_foreign_key "shopping_carts", "flowers"
   add_foreign_key "shopping_carts", "users"
+  add_foreign_key "voucher_orders", "orders"
+  add_foreign_key "voucher_orders", "vouchers"
 end

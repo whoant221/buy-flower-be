@@ -12,13 +12,10 @@ Rails.application.routes.draw do
 
       resources :shopping_carts, only: [:index, :create, :destroy]
 
-      resources :orders, only: [:create, :show, :destroy] do
+      resources :orders, only: [:create, :show, :destroy, :index] do
         collection do
-          get :init_order
-          get :pending_order
-          get :processing_order
-          get :successful_order
-          get :cancelled_order
+          post :valid_voucher
+          post :apply_voucher
         end
       end
 
