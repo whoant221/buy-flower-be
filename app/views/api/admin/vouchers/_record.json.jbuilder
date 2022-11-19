@@ -1,0 +1,11 @@
+json.code voucher.code
+json.content voucher.content
+json.discount voucher.discount
+json.effective_at voucher.effective_at
+json.expiration_at voucher.expiration_at
+json.limit_count voucher.limit_count
+json.max_amount voucher.max_amount
+json.title voucher.title
+json.threshold voucher.threshold
+json.used_count voucher.used_count
+json.txt_condition voucher.render_condition

@@ -1,60 +1,64 @@
 module Api
   module V1
     class OrdersController < ApiController
+      before_action :required_login
+
+      def index
+        render 'api/v1/orders/index', locals: {
+          orders: filter_order(params[:state])
+        }, formats: [:json], status: :ok
+      end
+
       def create
         OrderService::Client.new(user: current_user).create(order_params, params[:data])
         render json: {}, status: :ok
       end
 
-      def init_order
-        render 'api/v1/orders/index', locals: {
-          orders: order_service.filter_order(Order::INIT)
-        }, formats: [:json], status: :ok
-      end
-
-      def pending_order
-        render 'api/v1/orders/index', locals: {
-          orders: order_service.filter_order(Order::PENDING)
-        }, formats: [:json], status: :ok
-      end
-
-      def processing_order
-        render 'api/v1/orders/index', locals: {
-          orders: order_service.filter_order(Order::PROCESSING)
-        }, formats: [:json], status: :ok
-      end
-
-      def successful_order
-        render 'api/v1/orders/index', locals: {
-          orders: order_service.filter_order(Order::SUCCESSFUL)
-        }, formats: [:json], status: :ok
-      end
-
-      def cancelled_order
-        render 'api/v1/orders/index', locals: {
-          orders: order_service.filter_order(Order::CANCELLED)
-        }, formats: [:json], status: :ok
-      end
-
       def show
         render 'api/v1/orders/show', locals: {
-          order: OrderService::Order.new(user: current_user, order_id: params[:id]).show
+          order: order
         }, formats: [:json], status: :ok
+      end
+
+      def valid_voucher
+        authorize order, :valid_voucher?
+        sale_price = order_service.calculate_price_from_voucher(params[:code])
+        render json: {
+          sale_price: sale_price
+        }, status: :ok
+      end
+
+      def apply_voucher
+        authorize order, :apply_voucher?
+        order_service.apply_voucher(params[:code])
       end
 
       def destroy
-        OrderService::Order.new(user: current_user, order_id: params[:id]).cancel
+        authorize order, :destroy?
+        order_service.cancel
         render json: {}, status: :ok
       end
 
       private
 
+      def filter_order(state)
+        return current_user.orders if state.nil?
+        current_user.orders.where(state: state)
+      end
+
       def order_service
-        @order_service ||= OrderService::Client.new(user: current_user)
+        @order_service ||= OrderService::Order.new(order: order)
       end
 
       def order_params
         params.permit(:note, :receive_address)
+      end
+
+      def order
+        @order ||= Order.find_by(user: current_user, id: params[:id])
+        raise ActiveRecord::RecordNotFound, I18n.t('controller.concerns.api.v1.order.not_exists') unless @order
+
+        @order
       end
     end
   end

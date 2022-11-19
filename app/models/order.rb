@@ -11,6 +11,9 @@ class Order < ApplicationRecord
   has_many :order_details
   has_many :flower_details, through: :order_details
 
+  has_many :voucher_orders
+  has_many :vouchers, through: :voucher_orders
+
   before_validation :set_default_values
 
   validates_presence_of :receive_address
@@ -19,7 +22,7 @@ class Order < ApplicationRecord
     where(state: INIT)
   end
 
-  def total_sum
+  def price
     order_details.sum('amount * price')
   end
 

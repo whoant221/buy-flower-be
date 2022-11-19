@@ -4,10 +4,6 @@ module OrderService
       @user = user
     end
 
-    def filter_order(state)
-      @user.orders.where(state: state)
-    end
-
     def create(params, data)
       order = @user.orders.create!(params)
 
@@ -20,7 +16,7 @@ module OrderService
         flower_detail.used_count += key[:amount]
         flower_detail.save!
       end
-      order.original_price = order.total_sum
+      order.original_price = order.price
       order.save!
     end
 

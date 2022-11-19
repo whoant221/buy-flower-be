@@ -5,6 +5,8 @@ vi:
         v1:
           render_concern:
             unauthorized: 'Không đủ quyền để truy cập'
+          order:
+            not_exists: 'Đơn hàng không tồn tại'
   
   
   
@@ -38,6 +40,16 @@ vi:
         original_price: 'Giá gốc'
         sale_price: 'Giá giảm giá'
         receive_address: 'Địa chỉ nhận'
+      voucher:
+        code: 'Mã voucher'
+        content: 'Nội dung'
+        discount: 'Số phần trăm giảm giá'
+        effective_at: 'Ngày bắt đầu'
+        expiration_at: 'Ngày kết thúc'
+        limit: 'Giới hạn người sử dụng'
+        max_amount: 'Số tiền tối đa có thể giảm'
+        threshold: 'Ngưỡng áp dụng'
+        title: 'Tiêu đề'
     errors:
       models:
         user:
@@ -102,6 +114,28 @@ vi:
               blank: 'trống'
             receive_address:
               blank: 'trống'
+        voucher:
+          attributes:
+            code:
+              taken: 'tồn tại'
+            content:
+              blank: 'trống'
+            title:
+              blank: 'trống'
+            effective_at:
+              blank: 'trống'
+            expiration_at:
+              blank: 'trống'
+            discount:
+              less_than_or_equal_to: 'lớn hơn hoặc bằng 100'
+              greater_than_or_equal_to: 'bén hơn hoặc bằng 0'
+            limit:
+              greater_than_or_equal_to: 'lớn hơn hoặc bằng 0'
+            max_amount:
+              greater_than_or_equal_to: 'lớn hơn hoặc bằng 0'
+            threshold:
+              greater_than_or_equal_to: 'lớn hơn hoặc bằng 0'
+
       messages:
   #        record_invalid: 'không hợp lệ'
   services:
@@ -125,6 +159,9 @@ vi:
     order_service:
       not_exists: 'Đơn hàng không tồn tại'
       cannot_cancel: 'Đơn hàng này không thể hủy'
+    voucher_service:
+      not_exists: 'Mã giảm giá không tồn tại'
+      unconditional: 'Voucher không đủ điều kiện để sử dụng'
   pundit:
     default: 'Hành động bị giới hạn'
 
