@@ -3,7 +3,7 @@ class Flower < ApplicationRecord
   has_many :category, through: :category_flowers
 
   has_many :shopping_carts
-  
+
   has_many :users, through: :shopping_carts
   has_many :flower_details
 
@@ -21,6 +21,8 @@ class Flower < ApplicationRecord
   scope :find_color, -> (color) { find_by(color: color) if color.present? }
 
   scope :find_price, -> (price) { where("originalPrice <= ?", price) if price.present? }
+
+  scope :find_name, -> (name) { where("name LIKE ?", name) if name.present? }
 
   def remaining_amount
     flower_details.sum('count - used_count')
