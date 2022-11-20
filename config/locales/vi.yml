@@ -147,6 +147,9 @@ vi:
     admin_authenticate_service:
       login:
         invalid_credential: 'Đăng nhập không thành công, vui lòng thử lại'
+    category_service:
+      exists: 'Loại hoa này đã tồn tại'
+      not_exists: 'Loại hoa này không tồn tại'
     admin_category_service:
       exists: 'Loại hoa này đã tồn tại'
       not_exists: 'Loại hoa này không tồn tại'
