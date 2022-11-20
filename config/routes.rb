@@ -22,6 +22,12 @@ Rails.application.routes.draw do
       resources :categories, only: [:index, :show]
 
       resources :flowers, only: [:show, :index]
+
+      resources :vars do
+        collection do
+          get :color
+        end
+      end
     end
 
     namespace :admin do
