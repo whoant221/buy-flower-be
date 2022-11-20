@@ -18,8 +18,9 @@ class Flower < ApplicationRecord
 
   validates_numericality_of :sale_price, :original_price, :greater_than_or_equal_to => 0
 
-  scope :search, -> (color, price, name) {
+  scope :search, -> (color, price, name, category_id) {
     result = all
+    result = result.joins(:category_flowers).where('category_flowers.category_id = ?', category_id) if category_id.present?
     result = result.where(color: color) if color.present?
     result = result.where("original_price <= ?", price) if price.present?
     result = result.where("name LIKE ?", "%#{name}%") if name.present?
