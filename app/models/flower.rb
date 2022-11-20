@@ -7,6 +7,9 @@ class Flower < ApplicationRecord
   has_many :users, through: :shopping_carts
   has_many :flower_details
 
+  has_many :comments
+  has_many :users, through: :comments
+
   COLORS = [
     RED = 'red',
     BLUE = 'blue',
