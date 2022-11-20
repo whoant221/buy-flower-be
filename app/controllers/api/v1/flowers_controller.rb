@@ -1,22 +1,21 @@
 module Api
   module V1
-    class CategoriesController < ApiController
+    class FlowersController < ApiController
       def index
-        categories = Category.all
+        flowers = Flower.all
 
         render 'index', locals: {
-          categories: categories,
+          flowers: flowers
         }, formats: [:json], status: :ok
       end
 
       def show
-        category = AdminCategoryService::Client.new(id: params[:id]).show
+        flower = FlowerService::Client.new(id: params[:id]).show
 
         render 'show', locals: {
-          category: category,
+          flower: flower
         }, formats: [:json], status: :ok
       end
     end
   end
 end
-

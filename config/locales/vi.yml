@@ -157,6 +157,10 @@ vi:
       exists: 'Hoa này đã tồn tại'
       not_exists: 'Hoa này không tồn tại'
       invalid_category: 'Loại hoa này không tồn tại'
+    flower_service:
+      exists: 'Hoa này đã tồn tại'
+      not_exists: 'Hoa này không tồn tại'
+      invalid_category: 'Loại hoa này không tồn tại'
     admin_flower_detail_service:
       successfully: 'Nhập hoa thành công'
     order_service:
