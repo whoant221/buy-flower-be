@@ -2,7 +2,7 @@ module Api
   module V1
     class FlowersController < ApiController
       def index
-        flowers = Flower.search(params[:color], params[:price], params[:name], params[:category_id])
+        flowers = Flower.search(params[:color], params[:price], params[:name], params[:category_id], params[:order_by])
 
         render 'index', locals: {
           flowers: flowers
