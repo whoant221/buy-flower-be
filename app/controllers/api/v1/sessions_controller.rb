@@ -1,18 +1,27 @@
 module Api
   module V1
     class SessionsController < ApiController
+      before_action :required_login, only: [:me]
+
       def login
         authenticate = AuthenticateService::Login.new(email: user_params[:email], password: user_params[:password])
 
         if authenticate.success?
           render 'login', locals: {
-            token: authenticate.token
+            token: authenticate.token,
+            user: authenticate.user
           }, formats: [:json], status: :ok
         end
       end
 
       def register
         AuthenticateService::Register.new(params: user_params).create
+      end
+
+      def me
+        render 'me', locals: {
+          user: current_user
+        }, formats: [:json], status: :ok
       end
 
       private
