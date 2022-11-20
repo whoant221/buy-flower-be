@@ -7,7 +7,13 @@ Rails.application.routes.draw do
         collection do
           post :login
           post :register
-          get :me
+          post :reset_password
+        end
+      end
+
+      resources :users, only: [:index] do
+        collection do
+          put :change_info
         end
       end
 
