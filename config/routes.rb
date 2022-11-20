@@ -35,6 +35,9 @@ Rails.application.routes.draw do
           get :color
         end
       end
+
+      resources :comments, only: [:create, :index]
+
     end
 
     namespace :admin do

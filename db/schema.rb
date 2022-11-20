@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_19_181738) do
+ActiveRecord::Schema.define(version: 2022_11_20_194148) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,16 @@ ActiveRecord::Schema.define(version: 2022_11_19_181738) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["category_id"], name: "index_category_flowers_on_category_id"
     t.index ["flower_id"], name: "index_category_flowers_on_flower_id"
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.string "content"
+    t.bigint "flower_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["flower_id"], name: "index_comments_on_flower_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "flower_details", force: :cascade do |t|
@@ -130,6 +140,8 @@ ActiveRecord::Schema.define(version: 2022_11_19_181738) do
 
   add_foreign_key "category_flowers", "categories"
   add_foreign_key "category_flowers", "flowers"
+  add_foreign_key "comments", "flowers"
+  add_foreign_key "comments", "users"
   add_foreign_key "flower_details", "flowers"
   add_foreign_key "order_details", "flower_details"
   add_foreign_key "order_details", "orders"
