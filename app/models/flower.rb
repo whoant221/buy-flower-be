@@ -18,11 +18,13 @@ class Flower < ApplicationRecord
 
   validates_numericality_of :sale_price, :original_price, :greater_than_or_equal_to => 0
 
-  scope :find_color, -> (color) { find_by(color: color) if color.present? }
-
-  scope :find_price, -> (price) { where("originalPrice <= ?", price) if price.present? }
-
-  scope :find_name, -> (name) { where("name LIKE ?", name) if name.present? }
+  scope :search, -> (color, price, name) {
+    result = all
+    result = result.where(color: color) if color.present?
+    result = result.where("original_price <= ?", price) if price.present?
+    result = result.where("name LIKE ?", "%#{name}%") if name.present?
+    result
+  }
 
   def remaining_amount
     flower_details.sum('count - used_count')
