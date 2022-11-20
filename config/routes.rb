@@ -7,6 +7,13 @@ Rails.application.routes.draw do
         collection do
           post :login
           post :register
+          post :reset_password
+        end
+      end
+
+      resources :users, only: [:index] do
+        collection do
+          put :change_info
         end
       end
 
@@ -22,6 +29,12 @@ Rails.application.routes.draw do
       resources :categories, only: [:index, :show]
 
       resources :flowers, only: [:show, :index]
+
+      resources :vars do
+        collection do
+          get :color
+        end
+      end
     end
 
     namespace :admin do

@@ -5,8 +5,10 @@ vi:
         v1:
           render_concern:
             unauthorized: 'Không đủ quyền để truy cập'
+            invalid_user: 'Người dùng không tồn tại'
           order:
             not_exists: 'Đơn hàng không tồn tại'
+
   
   
   
