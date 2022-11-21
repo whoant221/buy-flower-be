@@ -6,8 +6,16 @@ module AdminFlowerService
       @id = id
     end
 
-    def create
-      Flower.create!(params)
+    def create(bud_data)
+      Flower.transaction do
+        flower = Flower.create!(params)
+        bud_data.each do |val|
+          bud = Bud.find_by(id: val[:id])
+          next unless bud
+          FlowerBud.create!(flower: flower, bud: bud, count: val[:count])
+        end
+        flower
+      end
     end
 
     def show

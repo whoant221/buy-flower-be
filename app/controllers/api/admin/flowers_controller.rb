@@ -3,7 +3,7 @@ module Api
     class FlowersController < ApiController
 
       def create
-        flower = AdminFlowerService::Client.new(params: flower_params).create
+        flower = AdminFlowerService::Client.new(params: flower_params).create(params[:bud_data])
 
         render 'create', locals: {
           flower: flower,

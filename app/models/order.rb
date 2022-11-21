@@ -9,7 +9,7 @@ class Order < ApplicationRecord
 
   belongs_to :user
   has_many :order_details
-  has_many :flower_details, through: :order_details
+  has_many :flowers, through: :order_details
 
   has_many :voucher_orders
   has_many :vouchers, through: :voucher_orders

@@ -2,10 +2,10 @@
 
 one:
   flower: one
+  bud: one
   count: 1
-  expiration_at: 2022-10-27 23:32:51
 
 two:
   flower: two
+  bud: two
   count: 1
-  expiration_at: 2022-10-27 23:32:51
