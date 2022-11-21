@@ -1,6 +1,6 @@
 require "test_helper"
 
-class FlowerDetailTest < ActiveSupport::TestCase
+class BudTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

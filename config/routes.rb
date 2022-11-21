@@ -41,6 +41,7 @@ Rails.application.routes.draw do
     end
 
     namespace :admin do
+
       resources :sessions, only: [] do
         collection do
           post :login
@@ -51,9 +52,9 @@ Rails.application.routes.draw do
 
       resources :flowers, only: [:create, :update, :index, :show]
 
-      resources :flower_details, only: [:create, :update, :index, :show]
-
       resources :vouchers, only: [:create, :update, :index, :show]
+
+      resources :buds, only: [:create, :index]
     end
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_20_194148) do
+ActiveRecord::Schema.define(version: 2022_11_21_171553) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,12 @@ ActiveRecord::Schema.define(version: 2022_11_20_194148) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["username"], name: "index_admins_on_username", unique: true
+  end
+
+  create_table "buds", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "categories", force: :cascade do |t|
@@ -49,14 +55,14 @@ ActiveRecord::Schema.define(version: 2022_11_20_194148) do
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
-  create_table "flower_details", force: :cascade do |t|
+  create_table "flower_buds", force: :cascade do |t|
     t.bigint "flower_id", null: false
+    t.bigint "bud_id", null: false
     t.integer "count"
-    t.datetime "expiration_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "used_count", default: 0, null: false
-    t.index ["flower_id"], name: "index_flower_details_on_flower_id"
+    t.index ["bud_id"], name: "index_flower_buds_on_bud_id"
+    t.index ["flower_id"], name: "index_flower_buds_on_flower_id"
   end
 
   create_table "flowers", force: :cascade do |t|
@@ -72,12 +78,12 @@ ActiveRecord::Schema.define(version: 2022_11_20_194148) do
 
   create_table "order_details", force: :cascade do |t|
     t.bigint "order_id", null: false
-    t.bigint "flower_detail_id", null: false
+    t.bigint "flower_id", null: false
     t.integer "amount"
     t.decimal "price"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["flower_detail_id"], name: "index_order_details_on_flower_detail_id"
+    t.index ["flower_id"], name: "index_order_details_on_flower_id"
     t.index ["order_id"], name: "index_order_details_on_order_id"
   end
 
@@ -142,8 +148,9 @@ ActiveRecord::Schema.define(version: 2022_11_20_194148) do
   add_foreign_key "category_flowers", "flowers"
   add_foreign_key "comments", "flowers"
   add_foreign_key "comments", "users"
-  add_foreign_key "flower_details", "flowers"
-  add_foreign_key "order_details", "flower_details"
+  add_foreign_key "flower_buds", "buds"
+  add_foreign_key "flower_buds", "flowers"
+  add_foreign_key "order_details", "flowers"
   add_foreign_key "order_details", "orders"
   add_foreign_key "orders", "users"
   add_foreign_key "shopping_carts", "flowers"
