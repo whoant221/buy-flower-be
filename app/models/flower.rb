@@ -11,6 +11,9 @@ class Flower < ApplicationRecord
   has_many :order_details
   has_many :orders, through: :order_details
 
+  has_many :flower_buds
+  has_many :buds, through: :flower_buds
+
   COLORS = [
     RED = 'red',
     BLUE = 'blue',

@@ -9,9 +9,6 @@ vi:
           order:
             not_exists: 'Đơn hàng không tồn tại'
 
-  
-  
-  
   activerecord:
     models:
       user: "Customer"
@@ -31,10 +28,6 @@ vi:
         category: 'Loại hoa'
         sale_price: 'Giá giảm giá'
         original_price: 'Giá gốc'
-      flower_detail:
-        expiration_at: 'Ngày hết hạn'
-        count: 'Số lượng nhập'
-        used_count: 'Số lượng sử dụng'
       shopping_cart:
         flower: 'Mã hoa'
         amount: 'Số lượng'
@@ -52,6 +45,8 @@ vi:
         max_amount: 'Số tiền tối đa có thể giảm'
         threshold: 'Ngưỡng áp dụng'
         title: 'Tiêu đề'
+      bud:
+        name: 'Tên'
     errors:
       models:
         user:
@@ -75,6 +70,10 @@ vi:
             title:
               blank: 'trống'
               taken: 'này đã tồn tại'
+        bud:
+          attributes:
+            name:
+              taken: 'đã tồn tại'
         flower:
           attributes:
             name:
@@ -90,18 +89,6 @@ vi:
             original_price:
               blank: 'trống'
               greater_than_or_equal_to: 'lớn hơn hoặc bằng 0'
-        flower_detail:
-          attributes:
-            expiration_at:
-              blank: 'trống'
-              less_or_equal_than_current: "không được bé hơn hoặc bằng hiện tại"
-            count:
-              blank: 'trống'
-              greater_than: 'lớn hơn 0'
-            used_count:
-              blank: 'trống'
-              greater_than_or_equal_to: 'lớn hơn hoặc bằng 0'
-              greater_than_count: 'không được lớn hơn số lượng nhập'
         shopping_cart:
           attributes:
             flower:
@@ -163,8 +150,6 @@ vi:
       exists: 'Hoa này đã tồn tại'
       not_exists: 'Hoa này không tồn tại'
       invalid_category: 'Loại hoa này không tồn tại'
-    admin_flower_detail_service:
-      successfully: 'Nhập hoa thành công'
     order_service:
       not_exists: 'Đơn hàng không tồn tại'
       cannot_cancel: 'Đơn hàng này không thể hủy'
