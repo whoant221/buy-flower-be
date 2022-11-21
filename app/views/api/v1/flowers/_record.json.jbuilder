@@ -7,6 +7,6 @@ json.description flower.description
 json.images flower.images
 json.category_ids flower.category_ids
 json.buds flower.flower_buds do |flower_bud|
-  json.name flower_bud.flower.name
+  json.name flower_bud.bud.name
   json.count flower_bud.count
 end
