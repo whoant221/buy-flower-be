@@ -49,16 +49,6 @@ ActiveRecord::Schema.define(version: 2022_11_20_194148) do
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
-  create_table "flower_details", force: :cascade do |t|
-    t.bigint "flower_id", null: false
-    t.integer "count"
-    t.datetime "expiration_at"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.integer "used_count", default: 0, null: false
-    t.index ["flower_id"], name: "index_flower_details_on_flower_id"
-  end
-
   create_table "flowers", force: :cascade do |t|
     t.string "name"
     t.string "color"
@@ -72,12 +62,12 @@ ActiveRecord::Schema.define(version: 2022_11_20_194148) do
 
   create_table "order_details", force: :cascade do |t|
     t.bigint "order_id", null: false
-    t.bigint "flower_detail_id", null: false
+    t.bigint "flower_id", null: false
     t.integer "amount"
     t.decimal "price"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["flower_detail_id"], name: "index_order_details_on_flower_detail_id"
+    t.index ["flower_id"], name: "index_order_details_on_flower_id"
     t.index ["order_id"], name: "index_order_details_on_order_id"
   end
 
@@ -142,8 +132,7 @@ ActiveRecord::Schema.define(version: 2022_11_20_194148) do
   add_foreign_key "category_flowers", "flowers"
   add_foreign_key "comments", "flowers"
   add_foreign_key "comments", "users"
-  add_foreign_key "flower_details", "flowers"
-  add_foreign_key "order_details", "flower_details"
+  add_foreign_key "order_details", "flowers"
   add_foreign_key "order_details", "orders"
   add_foreign_key "orders", "users"
   add_foreign_key "shopping_carts", "flowers"

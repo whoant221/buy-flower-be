@@ -51,8 +51,6 @@ Rails.application.routes.draw do
 
       resources :flowers, only: [:create, :update, :index, :show]
 
-      resources :flower_details, only: [:create, :update, :index, :show]
-
       resources :vouchers, only: [:create, :update, :index, :show]
     end
   end

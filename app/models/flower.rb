@@ -3,12 +3,13 @@ class Flower < ApplicationRecord
   has_many :category, through: :category_flowers
 
   has_many :shopping_carts
-
   has_many :users, through: :shopping_carts
-  has_many :flower_details
 
   has_many :comments
   has_many :users, through: :comments
+
+  has_many :order_details
+  has_many :orders, through: :order_details
 
   COLORS = [
     RED = 'red',
@@ -35,9 +36,5 @@ class Flower < ApplicationRecord
     end
     result
   }
-
-  def remaining_amount
-    flower_details.sum('count - used_count')
-  end
 
 end
