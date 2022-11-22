@@ -5,6 +5,6 @@ class Bud < ApplicationRecord
 
   validates_uniqueness_of :name
 
-  scope :find_name, -> (name) { where("name LIKE ?", "%#{name}%") if name.present? }
+  scope :find_name, -> (name) { where("name ILIKE ?", "%#{name}%") if name.present? }
 
 end

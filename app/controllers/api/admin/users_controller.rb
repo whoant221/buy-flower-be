@@ -2,7 +2,7 @@ module Api
   module Admin
     class UsersController < ApiController
       def index
-        users = User.all
+        users = User.search(params[:email])
 
         render 'index', locals: {
           users: users
