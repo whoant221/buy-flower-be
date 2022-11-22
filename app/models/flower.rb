@@ -30,7 +30,7 @@ class Flower < ApplicationRecord
     result = result.joins(:category_flowers).where('category_flowers.category_id = ?', category_id) if category_id.present?
     result = result.where(color: color) if color.present?
     result = result.where("original_price <= ?", price) if price.present?
-    result = result.where("name LIKE ?", "%#{name}%") if name.present?
+    result = result.where("name ILIKE ?", "%#{name}%") if name.present?
     if order_by.present?
       result = result.order("original_price ASC") if order_by == 'price_asc'
       result = result.order("original_price DESC") if order_by == 'price_desc'

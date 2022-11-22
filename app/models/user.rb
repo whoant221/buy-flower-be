@@ -10,4 +10,12 @@ class User < ApplicationRecord
 
   validates :email, uniqueness: true, format: URI::MailTo::EMAIL_REGEXP
   validates_presence_of :password_digest, :address, :phone_number, :name
+
+  scope :search, -> (email) {
+    result = all
+    result = result.where("email ILIKE ?", "%#{email}%") if email.present?
+
+    result
+  }
+
 end
