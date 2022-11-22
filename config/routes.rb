@@ -55,6 +55,8 @@ Rails.application.routes.draw do
       resources :vouchers, only: [:create, :update, :index, :show]
 
       resources :buds, only: [:create, :index]
+
+      resources :users, only: [:index, :create]
     end
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

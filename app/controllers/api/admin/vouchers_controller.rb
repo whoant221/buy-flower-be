@@ -17,7 +17,7 @@ module Api
         vouchers = filter_voucher(params[:state])
         render 'api/admin/vouchers/index', locals: {
           vouchers: vouchers
-        }, renders: [:json], status: :ok
+        }, formats: [:json], status: :ok
       end
 
       private
