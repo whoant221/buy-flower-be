@@ -38,6 +38,8 @@ Rails.application.routes.draw do
 
       resources :comments, only: [:create, :index]
 
+      resources :vouchers, only: [:index]
+
     end
 
     namespace :admin do

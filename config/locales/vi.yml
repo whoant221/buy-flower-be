@@ -41,7 +41,7 @@ vi:
         discount: 'Số phần trăm giảm giá'
         effective_at: 'Ngày bắt đầu'
         expiration_at: 'Ngày kết thúc'
-        limit: 'Giới hạn người sử dụng'
+        limit_count: 'Giới hạn người sử dụng'
         max_amount: 'Số tiền tối đa có thể giảm'
         threshold: 'Ngưỡng áp dụng'
         title: 'Tiêu đề'
@@ -118,12 +118,16 @@ vi:
             discount:
               less_than_or_equal_to: 'lớn hơn hoặc bằng 100'
               greater_than_or_equal_to: 'bén hơn hoặc bằng 0'
-            limit:
+              not_a_number: 'phải là số'
+            limit_count:
               greater_than_or_equal_to: 'lớn hơn hoặc bằng 0'
+              not_a_number: 'phải là số'
             max_amount:
               greater_than_or_equal_to: 'lớn hơn hoặc bằng 0'
+              not_a_number: 'phải là số'
             threshold:
               greater_than_or_equal_to: 'lớn hơn hoặc bằng 0'
+              not_a_number: 'phải là số'
 
       messages:
   #        record_invalid: 'không hợp lệ'

@@ -3,6 +3,7 @@ class Order < ApplicationRecord
     INIT = 'init',
     PENDING = 'pending',
     PROCESSING = 'processing',
+    SHIPPING = 'shipping',
     SUCCESSFUL = 'successful',
     CANCELLED = 'cancelled',
   ].freeze
