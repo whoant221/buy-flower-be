@@ -23,6 +23,13 @@ module Api
                status: :unprocessable_entity
       end
 
+      def render_pundit_errors(exception)
+        policy_name = exception.policy.class.to_s.underscore
+        message = I18n.t("#{policy_name}.#{exception.query}", scope: 'pundit', default: :default)
+
+        render json: [{ message: message }], status: :forbidden
+      end
+
       STATUSES.each do |status|
         define_method "render_#{status}" do |data = nil|
           if data.present? && [Hash, Array].include?(data.class)

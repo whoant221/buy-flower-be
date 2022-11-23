@@ -31,23 +31,30 @@ module Api
       def apply_voucher
         authorize order, :apply_voucher?
         order_service.apply_voucher(params[:code])
+        render json: {}, status: :ok
       end
 
       def destroy
         authorize order, :destroy?
-        order_service.cancel
+        order_service.cancel_order
         render json: {}, status: :ok
       end
 
-      def transaction_as_pending
-        authorize order, :transaction_as_pending?
-        order_service.transaction_as_pending
+      def mark_as_pending
+        authorize order, :mark_as_pending?
+        order.mark_as_pending
         render json: {}, status: :ok
       end
 
-      def transaction_as_processing
-        authorize order, :transaction_as_processing?
-        order_service.transaction_as_processing
+      def mark_as_processing
+        authorize order, :mark_as_processing?
+        order.mark_as_processing
+        render json: {}, status: :ok
+      end
+
+      def mark_as_cancelled
+        authorize order, :mark_as_cancelled?
+        order.mark_as_cancelled
         render json: {}, status: :ok
       end
 
