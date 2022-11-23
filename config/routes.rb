@@ -61,6 +61,13 @@ Rails.application.routes.draw do
       resources :buds, only: [:create, :index]
 
       resources :users, only: [:index, :create]
+
+      resources :orders, only: [:index] do
+        collection do
+          post :transaction_as_successful
+          post :transaction_as_cancelled
+        end
+      end
     end
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

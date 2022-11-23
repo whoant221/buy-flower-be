@@ -19,6 +19,12 @@ class Order < ApplicationRecord
 
   validates_presence_of :receive_address
 
+  scope :search, -> (state) {
+    result = all
+    result = result.where("state = ?", state) if state.present?
+    result
+  }
+
   def init_order
     where(state: INIT)
   end
