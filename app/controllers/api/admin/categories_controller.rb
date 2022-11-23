@@ -10,7 +10,7 @@ module Api
       end
 
       def index
-        categories = Category.all
+        categories = Category.search(params[:title])
 
         render 'index', locals: {
           categories: categories,

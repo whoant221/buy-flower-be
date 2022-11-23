@@ -4,12 +4,12 @@ class Voucher < ApplicationRecord
 
   validates :discount, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }
   validates_uniqueness_of :code
-  validates_presence_of :content, :title, :effective_at, :expiration_at
+  validates_presence_of :content, :effective_at, :expiration_at
   validates_numericality_of :limit_count, :threshold, :max_amount, :greater_than_or_equal_to => 0
 
-  scope :valid, -> () { where("effective_at <= ?", Time.now).where("expiration_at >= ?", Time.now).where("limit_count > ?", self.voucher_orders.count) }
+  scope :valid, -> () { joins(:voucher_orders).where("effective_at <= ?", Time.now).where("expiration_at >= ?", Time.now).where("limit_count > ") }
 
-  scope :invalid, -> () { where("effective_at > ?", Time.now).or(where("expiration_at < ?", Time.now)).or(where("used_count >= limit_count")) }
+  scope :invalid, -> () { where("effective_at > ?", Time.now).or(where("expiration_at < ?", Time.now)).or(where("limit_count <= ?", self.voucher_orders.count)) }
 
   def valid_condition?(price)
     used_count < limit_count && effective_at <= Time.now && expiration_at >= Time.now && price >= threshold

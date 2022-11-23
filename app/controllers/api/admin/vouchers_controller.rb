@@ -2,7 +2,7 @@ module Api
   module Admin
     class VouchersController < ApiController
       def create
-        Voucher.create!
+        Voucher.create!(voucher_params)
       end
 
       def show
@@ -27,9 +27,9 @@ module Api
       end
 
       def filter_voucher(filter)
-        return Voucher.all if filter.nil?
+        return Voucher.valid if filter == 'valid'
         return Voucher.invalid if filter == 'invalid'
-        Voucher.valid
+        Voucher.all
       end
 
     end

@@ -11,7 +11,7 @@ module Api
       end
 
       def index
-        flowers = Flower.all
+        flowers = Flower.search(params[:color], params[:price], params[:name], params[:category_id], params[:order_by])
 
         render 'index', locals: {
           flowers: flowers
