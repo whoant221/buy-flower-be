@@ -10,11 +10,7 @@ module OrderService
       data.each do |key|
         flower = Flower.find_by(id: key[:flower_id])
         next if flower.blank?
-        flower_detail = FlowerDetail.best_flower(key[:flower_id], key[:amount]).first
-        next if flower_detail.blank?
-        OrderDetail.create!(amount: key[:amount], flower_detail_id: flower_detail.id, price: flower[:sale_price], order_id: order.id)
-        flower_detail.used_count += key[:amount]
-        flower_detail.save!
+        OrderDetail.create!(amount: key[:amount], flower: flower, price: flower[:sale_price], order: order)
       end
       order.original_price = order.price
       order.save!
