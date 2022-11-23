@@ -2,7 +2,7 @@ module Api
   module V1
     class CategoriesController < ApiController
       def index
-        categories = Category.all
+        categories = Category.search(params[:title])
 
         render 'index', locals: {
           categories: categories,
