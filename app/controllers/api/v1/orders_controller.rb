@@ -10,7 +10,7 @@ module Api
       end
 
       def create
-        OrderService::Client.new(user: current_user).create(order_params, params[:data])
+        OrderService::Client.new(user: current_user).create(order_params)
         render json: {}, status: :ok
       end
 
@@ -36,6 +36,18 @@ module Api
       def destroy
         authorize order, :destroy?
         order_service.cancel
+        render json: {}, status: :ok
+      end
+
+      def transaction_as_pending
+        authorize order, :transaction_as_pending?
+        order_service.transaction_as_pending
+        render json: {}, status: :ok
+      end
+
+      def transaction_as_processing
+        authorize order, :transaction_as_processing?
+        order_service.transaction_as_processing
         render json: {}, status: :ok
       end
 
