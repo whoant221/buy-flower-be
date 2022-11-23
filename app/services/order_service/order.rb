@@ -26,6 +26,14 @@ module OrderService
       mark_cancelled
     end
 
+    def transaction_as_pending
+      order.mark_as_pending
+    end
+
+    def transaction_as_processing
+      order.mark_as_processing
+    end
+
     private
 
     attr_accessor :order
