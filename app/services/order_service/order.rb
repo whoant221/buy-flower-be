@@ -20,27 +20,15 @@ module OrderService
       end
     end
 
-    def cancel
+    def cancel_order
       # raise Exceptions::OrderInvalid, I18n.t('services.order_service.cannot_cancel') unless order.init? || order.pending?
       VoucherOrder.destroy_by(order_id: order.id)
-      mark_cancelled
-    end
-
-    def transaction_as_pending
-      order.mark_as_pending
-    end
-
-    def transaction_as_processing
-      order.mark_as_processing
+      order.mark_as_cancelled
     end
 
     private
 
     attr_accessor :order
-
-    def mark_cancelled
-      order.update(state: ::Order::CANCELLED)
-    end
 
   end
 end
