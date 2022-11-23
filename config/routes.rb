@@ -23,8 +23,11 @@ Rails.application.routes.draw do
         collection do
           post :valid_voucher
           post :apply_voucher
-          post :transaction_as_pending
-          post :transaction_as_processing
+        end
+        member do
+          post :mark_as_pending
+          post :mark_as_processing
+          post :mark_as_cancelled
         end
       end
 
@@ -63,12 +66,14 @@ Rails.application.routes.draw do
       resources :users, only: [:index, :create]
 
       resources :orders, only: [:index] do
-        collection do
-          post :transaction_as_successful
-          post :transaction_as_cancelled
+        member do
+          post :mark_as_successful
+          post :mark_as_cancelled
         end
       end
+
     end
   end
+
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

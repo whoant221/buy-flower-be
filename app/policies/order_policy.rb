@@ -11,19 +11,19 @@ class OrderPolicy < ApplicationPolicy
     @record.init?
   end
 
-  def transaction_as_pending?
+  def mark_as_pending?
     @record.init?
   end
 
-  def transaction_as_processing?
+  def mark_as_processing?
     @record.pending?
   end
 
-  def transaction_as_successful?
+  def mark_as_successful?
     @record.processing?
   end
 
-  def transaction_as_cancelled?
-    @record.init?
+  def mark_as_cancelled?
+    @record.init? || @record.pending?
   end
 end

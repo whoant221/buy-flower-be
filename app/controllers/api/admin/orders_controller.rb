@@ -1,7 +1,7 @@
 module Api
   module Admin
     class OrdersController < ApiController
-      before_action :order, only: [:transaction_as_success]
+      before_action :order, only: [:mark_as_successful, :mark_as_cancelled]
 
       def index
         render 'index', locals: {
@@ -9,19 +9,25 @@ module Api
         }, formats: [:json], status: :ok
       end
 
-      def transaction_as_successful
-        authorize order, :transaction_as_successful?
+      def mark_as_successful
+        authorize order, :mark_as_successful?
         order.mark_as_successful
+
         render json: {}, status: :ok
       end
 
-      def transaction_as_cancelled
-        authorize order, :transaction_as_cancelled?
+      def mark_as_cancelled
+        authorize order, :mark_as_cancelled?
         order.mark_as_cancelled
+
         render json: {}, status: :ok
       end
 
       private
+
+      def order_service
+        @order_service ||= OrderService::Order.new(order: order)
+      end
 
       def order
         @order ||= Order.find_by(id: params[:id])
