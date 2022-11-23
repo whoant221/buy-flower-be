@@ -20,8 +20,11 @@ module ShoppingCartService
     end
 
     def destroy(flower_id)
-      shopping_cart = ShoppingCart.find_by(user: @user, flower_id: flower_id)
-      shopping_cart.delete if shopping_cart
+      ShoppingCart.delete_by(user: @user, flower_id: flower_id)
+    end
+
+    def destroy_all
+      ShoppingCart.destroy_by(user: @user)
     end
 
     private

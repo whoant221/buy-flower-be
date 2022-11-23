@@ -28,6 +28,9 @@ class Order < ApplicationRecord
   end
 
   STATES.each do |state|
+    define_method "mark_as_#{state}" do
+      update!(state: state)
+    end
     define_method "#{state}?" do
       self.state == state
     end

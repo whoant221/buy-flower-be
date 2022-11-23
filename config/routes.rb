@@ -23,6 +23,8 @@ Rails.application.routes.draw do
         collection do
           post :valid_voucher
           post :apply_voucher
+          post :transaction_as_pending
+          post :transaction_as_processing
         end
       end
 

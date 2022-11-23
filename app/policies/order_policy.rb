@@ -10,4 +10,12 @@ class OrderPolicy < ApplicationPolicy
   def valid_voucher?
     @record.init?
   end
+
+  def transaction_as_pending?
+    @record.init?
+  end
+
+  def transaction_as_processing?
+    @record.pending?
+  end
 end
