@@ -10,7 +10,10 @@ module Api
       end
 
       def create
-        OrderService::Client.new(user: current_user).create(order_params)
+        order = OrderService::Client.new(user: current_user).create(order_params)
+        if params[:code].present? && order.present?
+          OrderService::Order.new(order: order).apply_voucher(params[:code])
+        end
         render json: {}, status: :ok
       end
 
@@ -28,11 +31,11 @@ module Api
         }, status: :ok
       end
 
-      def apply_voucher
-        authorize order, :apply_voucher?
-        order_service.apply_voucher(params[:code])
-        render json: {}, status: :ok
-      end
+      # def apply_voucher
+      #   authorize order, :apply_voucher?
+      #   order_service.apply_voucher(params[:code])
+      #   render json: {}, status: :ok
+      # end
 
       def destroy
         authorize order, :destroy?

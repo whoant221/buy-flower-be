@@ -22,7 +22,7 @@ Rails.application.routes.draw do
       resources :orders, only: [:create, :show, :destroy, :index] do
         collection do
           post :valid_voucher
-          post :apply_voucher
+          # post :apply_voucher
         end
         member do
           post :mark_as_pending

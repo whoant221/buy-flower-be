@@ -19,6 +19,7 @@ module OrderService
           order.original_price = order.price
           shopping_cart_service.destroy_all
           order.save!
+          order
         end
       end
 
