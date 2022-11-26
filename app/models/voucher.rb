@@ -2,17 +2,23 @@ class Voucher < ApplicationRecord
   has_many :voucher_orders
   has_many :orders, through: :voucher_orders
 
+  before_validation :set_default_values
+
   validates :discount, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }
   validates_uniqueness_of :code
   validates_presence_of :content, :effective_at, :expiration_at
   validates_numericality_of :limit_count, :threshold, :max_amount, :greater_than_or_equal_to => 0
 
-  scope :valid, -> () { joins(:voucher_orders).where("effective_at <= ?", Time.now).where("expiration_at >= ?", Time.now).where("limit_count > ") }
+  scope :valid, -> (price) {
+    result = where("effective_at <= ?", Time.now).where("expiration_at >= ?", Time.now).where("limit_count > orders_count")
+    result = result.where("threshold <= ?", price) if price.present?
+    result
+  }
 
-  scope :invalid, -> () { where("effective_at > ?", Time.now).or(where("expiration_at < ?", Time.now)).or(where("limit_count <= ?", self.voucher_orders.count)) }
+  scope :invalid, -> () { where("effective_at > ?", Time.now).or(where("expiration_at < ?", Time.now)).or(where("limit_count <= orders_count")) }
 
   def valid_condition?(price)
-    used_count < limit_count && effective_at <= Time.now && expiration_at >= Time.now && price >= threshold
+    orders_count < limit_count && effective_at <= Time.now && expiration_at >= Time.now && price >= threshold
   end
 
   def calculate_price(price)
@@ -38,8 +44,10 @@ class Voucher < ApplicationRecord
     end
   end
 
-  def used_count
-    voucher_orders.count
+  private
+
+  def set_default_values
+    self.orders_count = 0
   end
 
 end
