@@ -45,6 +45,7 @@ Rails.application.routes.draw do
 
       resources :vouchers, only: [:index]
 
+      resources :buds, only: [:index]
     end
 
     namespace :admin do
