@@ -20,12 +20,7 @@ Rails.application.routes.draw do
       resources :shopping_carts, only: [:index, :create, :destroy]
 
       resources :orders, only: [:create, :show, :destroy, :index] do
-        collection do
-          # post :valid_voucher
-          # post :apply_voucher
-        end
         member do
-          post :mark_as_pending
           post :mark_as_processing
           post :mark_as_cancelled
         end
@@ -45,7 +40,7 @@ Rails.application.routes.draw do
 
       resources :vouchers, only: [:index] do
         collection do
-          get :valid_price
+          post :valid_price
         end
       end
 

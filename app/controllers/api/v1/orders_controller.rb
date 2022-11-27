@@ -14,37 +14,20 @@ module Api
         if params[:code].present? && order.present?
           OrderService::Order.new(order: order).apply_voucher(params[:code])
         end
-        render json: {}, status: :ok
-      end
-
-      def show
-        render 'api/v1/orders/show', locals: {
+        render 'show', locals: {
           order: order
         }, formats: [:json], status: :ok
       end
 
-      def valid_voucher
-        sale_price = VoucherService::Client.new(code: params[:code]).sale_price(params[:price])
-        render json: {
-          sale_price: sale_price
-        }, status: :ok
+      def show
+        render 'show', locals: {
+          order: order
+        }, formats: [:json], status: :ok
       end
-
-      # def apply_voucher
-      #   authorize order, :apply_voucher?
-      #   order_service.apply_voucher(params[:code])
-      #   render json: {}, status: :ok
-      # end
 
       def destroy
         authorize order, :destroy?
         order_service.cancel_order
-        render json: {}, status: :ok
-      end
-
-      def mark_as_pending
-        authorize order, :mark_as_pending?
-        order.mark_as_pending
         render json: {}, status: :ok
       end
 
