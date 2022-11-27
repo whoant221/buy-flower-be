@@ -10,7 +10,21 @@ module Api
       end
 
       def create
-        order = OrderService::Client.new(user: current_user).create(order_params)
+        if order_params[:delivery_time].blank? || order_params[:delivery_time].to_datetime <= Date.today
+          raise Exceptions::TimeInvalid, I18n.t('services.order_service.time_invalid')
+        end
+
+        if params[:receiver].blank? || params[:receive_phone].blank? || params[:gift_cart_for].blank? || params[:reason].blank? || params[:message].blank?
+          raise Exceptions::DataInvalid, I18n.t('services.order_service.data_invalid')
+        end
+        additional_data = {
+          :receiver => params[:receiver],
+          :receive_phone => params[:receive_phone],
+          :gift_cart_for => params[:gift_cart_for],
+          :reason => params[:reason],
+          :message => params[:message],
+        }
+        order = OrderService::Client.new(user: current_user).create(order_params, additional_data)
         if params[:code].present? && order.present?
           OrderService::Order.new(order: order).apply_voucher(params[:code])
         end
@@ -55,7 +69,7 @@ module Api
       end
 
       def order_params
-        params.permit(:note, :receive_address)
+        params.permit(:note, :receive_address, :delivery_time)
       end
 
       def order

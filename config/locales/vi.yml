@@ -158,6 +158,8 @@ vi:
       not_exists: 'Đơn hàng không tồn tại'
       cannot_cancel: 'Đơn hàng này không thể hủy'
       shopping_cart_blank: 'Giỏ hàng rỗng'
+      time_invalid: 'Thời gian gửi hàng không hợp lệ'
+      data_invalid: 'Dữ liệu nhập vào không hợp lệ'
     voucher_service:
       not_exists: 'Mã giảm giá không tồn tại'
       unconditional: 'Voucher không đủ điều kiện để sử dụng'

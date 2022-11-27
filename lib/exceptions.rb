@@ -12,4 +12,8 @@ class Exceptions
   class CategoryInvalid < StandardError; end
 
   class ShoppingCartBlank < StandardError; end
+
+  class TimeInvalid < StandardError; end
+
+  class DataInvalid < StandardError; end
 end

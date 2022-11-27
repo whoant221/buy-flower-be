@@ -4,7 +4,7 @@ module OrderService
       @user = user
     end
 
-    def create(params)
+    def create(params, additional_data)
       shopping_carts = shopping_cart_service.all
       raise Exceptions::ShoppingCartBlank, I18n.t('services.order_service.shopping_cart_blank') if shopping_carts.count == 0
 
@@ -17,6 +17,7 @@ module OrderService
             OrderDetail.create!(amount: key[:amount], flower: flower, price: flower[:sale_price], order: order)
           end
           order.original_price = order.price
+          order.additional_data = additional_data
           shopping_cart_service.destroy_all
           order.save!
           order
