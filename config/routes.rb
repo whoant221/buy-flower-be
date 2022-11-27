@@ -21,7 +21,7 @@ Rails.application.routes.draw do
 
       resources :orders, only: [:create, :show, :destroy, :index] do
         collection do
-          post :valid_voucher
+          # post :valid_voucher
           # post :apply_voucher
         end
         member do
@@ -43,7 +43,11 @@ Rails.application.routes.draw do
 
       resources :comments, only: [:create, :index]
 
-      resources :vouchers, only: [:index]
+      resources :vouchers, only: [:index] do
+        collection do
+          get :valid_price
+        end
+      end
 
       resources :buds, only: [:index]
     end

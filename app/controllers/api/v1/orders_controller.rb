@@ -24,8 +24,7 @@ module Api
       end
 
       def valid_voucher
-        authorize order, :valid_voucher?
-        sale_price = order_service.calculate_price_from_voucher(params[:code])
+        sale_price = VoucherService::Client.new(code: params[:code]).sale_price(params[:price])
         render json: {
           sale_price: sale_price
         }, status: :ok
