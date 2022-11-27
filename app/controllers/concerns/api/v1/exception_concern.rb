@@ -10,6 +10,7 @@ module Api
         rescue_from ActiveRecord::RecordInvalid, with: :render_record_invalid
         rescue_from Exceptions::InvalidCredentials, with: :render_not_acceptable
         rescue_from Exceptions::OrderInvalid, with: :render_not_acceptable
+        rescue_from Exceptions::ShoppingCartBlank, with: :render_not_acceptable
       end
     end
   end

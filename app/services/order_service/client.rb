@@ -6,7 +6,7 @@ module OrderService
 
     def create(params)
       shopping_carts = shopping_cart_service.all
-      return if shopping_carts.count == 0
+      raise Exceptions::ShoppingCartBlank, I18n.t('services.order_service.shopping_cart_blank') if shopping_carts.count == 0
 
       ShoppingCart.transaction do
         ::Order.transaction do

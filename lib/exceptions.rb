@@ -10,4 +10,6 @@ class Exceptions
   class OrderInvalid < StandardError; end
 
   class CategoryInvalid < StandardError; end
+
+  class ShoppingCartBlank < StandardError; end
 end

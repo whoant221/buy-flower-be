@@ -6,11 +6,7 @@ class OrderPolicy < ApplicationPolicy
   def destroy?
     @record.init? || @record.pending?
   end
-
-  def valid_voucher?
-    @record.init?
-  end
-
+  
   def mark_as_pending?
     @record.init?
   end
