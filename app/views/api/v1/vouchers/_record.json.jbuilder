@@ -7,5 +7,5 @@ json.limit_count voucher.limit_count
 json.max_amount voucher.max_amount
 json.title voucher.title
 json.threshold voucher.threshold
-json.used_count voucher.used_count
+json.orders_count voucher.orders_count
 json.condition_str voucher.render_condition

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_21_171553) do
+ActiveRecord::Schema.define(version: 2022_11_26_175243) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -141,6 +141,7 @@ ActiveRecord::Schema.define(version: 2022_11_21_171553) do
     t.decimal "max_amount"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "orders_count"
     t.index ["code"], name: "index_vouchers_on_code"
   end
 

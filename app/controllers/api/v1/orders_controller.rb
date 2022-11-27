@@ -10,39 +10,24 @@ module Api
       end
 
       def create
-        OrderService::Client.new(user: current_user).create(order_params)
-        render json: {}, status: :ok
-      end
-
-      def show
-        render 'api/v1/orders/show', locals: {
+        order = OrderService::Client.new(user: current_user).create(order_params)
+        if params[:code].present? && order.present?
+          OrderService::Order.new(order: order).apply_voucher(params[:code])
+        end
+        render 'show', locals: {
           order: order
         }, formats: [:json], status: :ok
       end
 
-      def valid_voucher
-        authorize order, :valid_voucher?
-        sale_price = order_service.calculate_price_from_voucher(params[:code])
-        render json: {
-          sale_price: sale_price
-        }, status: :ok
-      end
-
-      def apply_voucher
-        authorize order, :apply_voucher?
-        order_service.apply_voucher(params[:code])
-        render json: {}, status: :ok
+      def show
+        render 'show', locals: {
+          order: order
+        }, formats: [:json], status: :ok
       end
 
       def destroy
         authorize order, :destroy?
         order_service.cancel_order
-        render json: {}, status: :ok
-      end
-
-      def mark_as_pending
-        authorize order, :mark_as_pending?
-        order.mark_as_pending
         render json: {}, status: :ok
       end
 
@@ -62,7 +47,7 @@ module Api
 
       def filter_order(state)
         return current_user.orders if state.nil?
-        current_user.orders.where(state: state)
+        current_user.orders.where(state: state).orders
       end
 
       def order_service
