@@ -1,7 +1,16 @@
 module VoucherService
   class Client
-    def initialize(code:)
-      @code = code;
+    def initialize(code: nil, user:)
+      @code = code
+      @user = user
+    end
+
+    def valid_vouchers(price)
+      Voucher.where("effective_at <= ?", Time.now)
+             .where("expiration_at >= ?", Time.now)
+             .where("limit_count > orders_count")
+             .where("threshold <= ?", price)
+             .where.not(id: VoucherOrder.joins(:order).where("order.user": user).select(:voucher_id))
     end
 
     def valid?(price)
@@ -16,14 +25,16 @@ module VoucherService
       voucher.orders << order
     end
 
-    def cancel
+    def cancel_order
 
     end
 
     private
 
+    attr_accessor :user, :code
+
     def voucher
-      @voucher = Voucher.find_by(code: @code)
+      @voucher = Voucher.find_by(code: code)
       raise ActiveRecord::RecordNotFound, I18n.t('services.voucher_service.not_exists') unless @voucher
 
       @voucher
