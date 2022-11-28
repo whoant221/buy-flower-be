@@ -19,10 +19,10 @@ class Order < ApplicationRecord
 
   validates_presence_of :receive_address
 
-  scope :search, -> (state) {
+  scope :filter_by_state, -> (state) {
     result = all
     result = result.where("state = ?", state) if state.present?
-    result
+    result.order(created_at: :desc)
   }
 
   def init_order
@@ -43,7 +43,6 @@ class Order < ApplicationRecord
   end
 
   def set_default_values
-    self.note ||= ""
     self.sale_price ||= original_price
     self.state ||= INIT
   end
