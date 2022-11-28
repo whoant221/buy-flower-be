@@ -24,9 +24,9 @@ module Api
           :reason => params[:reason],
           :message => params[:message],
         }
-        order = OrderService::Client.new(user: current_user).create(order_params, additional_data)
+        order = order_service.create(order_params, additional_data)
         if params[:code].present? && order.present?
-          OrderService::Order.new(order: order).apply_voucher(params[:code])
+          OrderService::Order.new(order: order, user: current_user).apply_voucher(voucher_service)
         end
         render 'show', locals: {
           order: order
@@ -41,14 +41,17 @@ module Api
 
       def destroy
         authorize order, :destroy?
-        order_service.cancel_order
+        OrderService::Order.new(order: order, user: current_user).cancel_order
         render json: {}, status: :ok
       end
 
       def mark_as_processing
         authorize order, :mark_as_processing?
         order.mark_as_processing
-        render json: {}, status: :ok
+
+        render 'show', locals: {
+          order: order
+        }, formats: [:json], status: :ok
       end
 
       def mark_as_cancelled
@@ -65,7 +68,11 @@ module Api
       end
 
       def order_service
-        @order_service ||= OrderService::Order.new(order: order)
+        @order_service ||= OrderService::Client.new(user: current_user)
+      end
+
+      def voucher_service
+        @voucher_service ||= VoucherService::Client.new(user: current_user, code: params[:code])
       end
 
       def order_params

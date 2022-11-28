@@ -3,9 +3,7 @@ json.content voucher.content
 json.discount voucher.discount
 json.effective_at voucher.effective_at
 json.expiration_at voucher.expiration_at
-json.limit_count voucher.limit_count
 json.max_amount voucher.max_amount
 json.title voucher.title
 json.threshold voucher.threshold
-json.orders_count voucher.orders_count
 json.condition_str voucher.render_condition

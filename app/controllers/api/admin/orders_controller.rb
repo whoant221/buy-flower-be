@@ -25,10 +25,6 @@ module Api
 
       private
 
-      def order_service
-        @order_service ||= OrderService::Order.new(order: order)
-      end
-
       def order
         @order ||= Order.find_by(id: params[:id])
         raise ActiveRecord::RecordNotFound, I18n.t('controller.concerns.api.v1.order.not_exists') unless @order

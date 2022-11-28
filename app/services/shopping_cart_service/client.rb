@@ -5,11 +5,11 @@ module ShoppingCartService
       @params = params
     end
 
-    def all
+    def all_items
       @user.shopping_carts
     end
 
-    def add_new_item
+    def add_item
       if exists?
         shopping_cart.amount = @params[:amount]
         shopping_cart.save!

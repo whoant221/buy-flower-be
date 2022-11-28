@@ -9,7 +9,7 @@ class Voucher < ApplicationRecord
   validates_presence_of :content, :effective_at, :expiration_at
   validates_numericality_of :limit_count, :threshold, :max_amount, :greater_than_or_equal_to => 0
 
-  scope :valid, -> (price) {
+  scope :filter_valid, -> (price) {
     result = where("effective_at <= ?", Time.now).where("expiration_at >= ?", Time.now).where("limit_count > orders_count")
     result = result.where("threshold <= ?", price) if price.present?
     result

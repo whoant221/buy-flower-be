@@ -27,7 +27,7 @@ module Api
       end
 
       def filter_voucher(filter)
-        return Voucher.valid if filter == 'valid'
+        return Voucher.filter_valid if filter == 'valid'
         return Voucher.invalid if filter == 'invalid'
         Voucher.all
       end
