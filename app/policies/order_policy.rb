@@ -1,14 +1,7 @@
 class OrderPolicy < ApplicationPolicy
-  def apply_voucher?
-    @record.init?
-  end
 
   def destroy?
-    @record.init? || @record.pending?
-  end
-  
-  def mark_as_pending?
-    @record.init?
+    @record.pending?
   end
 
   def mark_as_processing?
@@ -20,6 +13,6 @@ class OrderPolicy < ApplicationPolicy
   end
 
   def mark_as_cancelled?
-    @record.init? || @record.pending?
+    @record.pending?
   end
 end

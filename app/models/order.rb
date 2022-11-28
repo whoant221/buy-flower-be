@@ -1,9 +1,7 @@
 class Order < ApplicationRecord
   STATES = [
-    INIT = 'init',
     PENDING = 'pending',
     PROCESSING = 'processing',
-    SHIPPING = 'shipping',
     SUCCESSFUL = 'successful',
     CANCELLED = 'cancelled',
   ].freeze
@@ -24,10 +22,6 @@ class Order < ApplicationRecord
     result = result.where("state = ?", state) if state.present?
     result.order(created_at: :desc)
   }
-
-  def init_order
-    where(state: INIT)
-  end
 
   def price
     order_details.sum('amount * price')
