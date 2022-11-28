@@ -44,7 +44,7 @@ class Order < ApplicationRecord
 
   def set_default_values
     self.sale_price ||= original_price
-    self.state ||= INIT
+    self.state ||= PENDING
   end
 
 end
