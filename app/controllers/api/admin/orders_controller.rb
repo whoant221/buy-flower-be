@@ -5,7 +5,7 @@ module Api
 
       def index
         render 'index', locals: {
-          orders: Order.search(params[:state])
+          orders: Order.filter_by_state(params[:state])
         }, formats: [:json], status: :ok
       end
 
