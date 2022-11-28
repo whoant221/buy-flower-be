@@ -61,7 +61,7 @@ module Api
 
       def filter_order(state)
         return current_user.orders if state.nil?
-        current_user.orders.where(state: state).orders
+        current_user.orders.where(state: state).order(created_at: :desc)
       end
 
       def order_service
