@@ -4,7 +4,7 @@ module Api
       before_action :required_login
 
       def index
-        shopping_carts = ShoppingCartService::Client.new(user: current_user).all
+        shopping_carts = shopping_cart_service.all_items
 
         render 'api/v1/shopping_carts/index', locals: {
           shopping_carts: shopping_carts
@@ -12,7 +12,7 @@ module Api
       end
 
       def create
-        shopping_cart = ShoppingCartService::Client.new(user: current_user, params: shopping_cart_params).add_new_item
+        shopping_cart = shopping_cart_service.add_item
 
         render 'api/v1/shopping_carts/create', locals: {
           shopping_cart: shopping_cart
@@ -20,12 +20,16 @@ module Api
       end
 
       def destroy
-        ShoppingCartService::Client.new(user: current_user).destroy(params[:id])
+        shopping_cart_service.destroy(params[:id])
 
         render json: {}, status: :ok
       end
 
       private
+
+      def shopping_cart_service
+        @shopping_cart_service ||= ShoppingCartService::Client.new(user: current_user, params: shopping_cart_params)
+      end
 
       def shopping_cart_params
         params.permit(:flower_id, :amount)
