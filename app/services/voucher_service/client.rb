@@ -15,11 +15,7 @@ module VoucherService
     def apply_order(order)
       voucher.orders << order
     end
-
-    def cancel
-
-    end
-
+    
     private
 
     def voucher
