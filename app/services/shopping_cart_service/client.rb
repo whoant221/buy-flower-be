@@ -5,7 +5,7 @@ module ShoppingCartService
       @params = params
     end
 
-    def all
+    def all_items
       @user.shopping_carts
     end
 
