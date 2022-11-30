@@ -1,9 +1,7 @@
 class Order < ApplicationRecord
   STATES = [
-    INIT = 'init',
     PENDING = 'pending',
     PROCESSING = 'processing',
-    SHIPPING = 'shipping',
     SUCCESSFUL = 'successful',
     CANCELLED = 'cancelled',
   ].freeze
@@ -25,10 +23,6 @@ class Order < ApplicationRecord
     result.order(created_at: :desc)
   }
 
-  def init_order
-    where(state: INIT)
-  end
-
   def price
     order_details.sum('amount * price')
   end
@@ -45,6 +39,7 @@ class Order < ApplicationRecord
   def set_default_values
     self.sale_price ||= original_price
     self.state ||= PENDING
+    self.shipping_ref ||= ''
   end
 
 end

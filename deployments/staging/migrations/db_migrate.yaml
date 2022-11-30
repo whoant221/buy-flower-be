@@ -6,6 +6,7 @@ metadata:
 spec:
   template:
     metadata:
+      name: buy-flower-migrate-db
       labels:
         app: buy-flower-be
     spec:
