@@ -4,6 +4,9 @@ json.sale_price order.sale_price
 json.receive_address order.receive_address
 json.additional_data order.additional_data
 json.state order.state
+if order.shipping_ref != ''
+  json.shipping_link "https://tracking.ghn.dev/?order_code=#{order.shipping_ref}"
+end
 json.order_details order.order_details do |order_detail|
   json.flower_id order_detail.flower_id
   json.name order_detail.flower.name

@@ -25,6 +25,10 @@ module VoucherService
       voucher.orders << order
     end
 
+    def cancel_order
+
+    end
+
     private
 
     attr_accessor :user, :code
