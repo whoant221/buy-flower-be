@@ -1,40 +1,40 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: buy-flower-be
+  name: sidekiq
   namespace: buy-flower-staging
   labels:
-    app: buy-flower-be
-    tier: api
+    app: sidekiq
+    tier: job
 spec:
   replicas: 1
   template:
     metadata:
-      name: buy-flower-be
+      name: sidekiq
       labels:
-        app: buy-flower-be
-        tier: api
+        app: sidekiq
+        tier: job
     spec:
       containers:
-        - name: buy-flower-be
+        - name: sidekiq
           image: ghcr.io/whoant221/buy-flower-be:VERSION
           imagePullPolicy: IfNotPresent
-          ports:
-            - containerPort: 3000
-          resources:
-            limits:
-              memory: "400Mi"
-              cpu: "400m"
-            requests:
-              memory: "200Mi"
-              cpu: "200m"
+          command:
+            - "/opt/buy-flower/docker/sidekiq.sh"
           envFrom:
             - secretRef:
                 { name: secret.buy-flower }
             - configMapRef:
                 { name: configmap.buy-flower }
+          resources:
+            limits:
+              memory: "400Mi"
+              cpu: "150m"
+            requests:
+              memory: "256Mi"
+              cpu: "100m"
       restartPolicy: Always
   selector:
     matchLabels:
-      app: buy-flower-be
-      tier: api
+      app: sidekiq
+      tier: job
