@@ -21,7 +21,6 @@ Rails.application.routes.draw do
 
       resources :orders, only: [:create, :show, :destroy, :index] do
         member do
-          post :mark_as_processing
           post :mark_as_cancelled
         end
       end
@@ -67,6 +66,7 @@ Rails.application.routes.draw do
 
       resources :orders, only: [:index] do
         member do
+          post :mark_as_processing
           post :mark_as_successful
           post :mark_as_cancelled
         end

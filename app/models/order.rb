@@ -39,6 +39,7 @@ class Order < ApplicationRecord
   def set_default_values
     self.sale_price ||= original_price
     self.state ||= PENDING
+    self.shipping_ref ||= ''
   end
 
 end

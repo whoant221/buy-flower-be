@@ -5,6 +5,18 @@ module TransportService
       @order = order
     end
 
+    def create
+      resp = create_order
+      order.shipping_ref = resp['data']['order_code']
+      order.save!
+    rescue Exception
+      order.mark_as_pending
+    end
+
+    private
+
+    attr_reader :order
+
     def create_order
       body = {
         payment_type_id: 1,
@@ -40,7 +52,7 @@ module TransportService
         service_type_id: 2,
         items: items
       }
-      
+
       resp = Timeout::timeout(30) do
         HTTParty.post(
           'https://dev-online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/create',
@@ -50,15 +62,11 @@ module TransportService
       end
 
       if resp.success?
-        JSON.parse(resp.body)['data']
+        JSON.parse(resp.body)
       else
         raise StandardError, "Body #{resp.body} has code #{resp.code}"
       end
     end
-
-    private
-
-    attr_reader :order
 
     def items
       order.order_details.map do |order_detail|
@@ -66,7 +74,7 @@ module TransportService
           name: order_detail.flower.name,
           # code: 'Polo123',
           quantity: order_detail.amount,
-          price: 10,
+          price: order_detail.flower.sale_price.to_i,
           length: 12,
           width: 12,
           height: 12,
