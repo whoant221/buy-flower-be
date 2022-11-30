@@ -20,6 +20,10 @@ module OrderService
       order.mark_as_cancelled
     end
 
+    def mark_processing
+
+    end
+
     private
 
     attr_accessor :order, :user
