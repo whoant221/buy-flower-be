@@ -27,4 +27,5 @@ RUN bundle install --retry 2 --without=development test
 ADD . $APP_PATH
 EXPOSE 3000
 RUN chmod +x /opt/buy-flower/docker/rails.sh
+RUN chmod +x /opt/buy-flower/docker/sidekiq.sh
 CMD ["/opt/buy-flower/docker/rails.sh"]
