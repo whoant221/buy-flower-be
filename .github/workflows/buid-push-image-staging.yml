@@ -45,6 +45,10 @@ jobs:
         run: |
           chmod +x ./deployments/staging/migrations/migrate.sh
           ./deployments/staging/migrations/migrate.sh ${{ env.IMAGE_VERSION }}
+      - name: Run sidekiq queue
+        run: |
+          chmod +x ./deployments/staging/sidekiq/deploy_sidekiq.sh
+          ./deployments/staging/sidekiq/deploy_sidekiq.sh ${{ env.IMAGE_VERSION }}
       - name: Run deploy app
         run: |
           chmod +x ./deployments/staging/update_version_and_deploy.sh
