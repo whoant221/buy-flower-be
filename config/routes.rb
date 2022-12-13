@@ -58,7 +58,11 @@ Rails.application.routes.draw do
 
       resources :flowers, only: [:create, :update, :index, :show]
 
-      resources :vouchers, only: [:create, :update, :index, :show]
+      resources :vouchers, only: [:create, :update, :index, :show] do
+        collection do
+          delete '/:code', to: 'vouchers#destroy'
+        end
+      end
 
       resources :buds, only: [:create, :index]
 

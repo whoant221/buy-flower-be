@@ -1,4 +1,5 @@
 json.order_id order.id
+json.name order.user.name
 json.original_price order.original_price
 json.sale_price order.sale_price
 json.receive_address order.receive_address

@@ -8,6 +8,8 @@ vi:
             invalid_user: 'Người dùng không tồn tại'
           order:
             not_exists: 'Đơn hàng không tồn tại'
+          voucher:
+            not_exists: 'Voucher không tồn tại'
 
   activerecord:
     models:
