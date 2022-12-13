@@ -20,6 +20,13 @@ module Api
         }, formats: [:json], status: :ok
       end
 
+      def destroy
+        authorize voucher, :destroy?
+        voucher.destroy!
+        
+        render json: {}, status: :ok
+      end
+
       private
 
       def voucher_params
@@ -30,6 +37,13 @@ module Api
         return Voucher.filter_valid if filter == 'valid'
         return Voucher.invalid if filter == 'invalid'
         Voucher.all
+      end
+
+      def voucher
+        @voucher ||= Voucher.find_by(code: params[:code])
+        raise ActiveRecord::RecordNotFound, I18n.t('controller.concerns.api.v1.voucher.not_exists') unless @voucher
+
+        @voucher
       end
 
     end
