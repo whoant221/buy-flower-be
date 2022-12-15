@@ -6,11 +6,13 @@ module VoucherService
     end
 
     def valid_vouchers(price)
-      Voucher.where("effective_at <= ?", Time.now)
-             .where("expiration_at >= ?", Time.now)
-             .where("limit_count > orders_count")
-             .where("threshold <= ?", price)
-             .where.not(id: VoucherOrder.joins(:order).where("order.user": user).select(:voucher_id))
+      result = Voucher.where("effective_at <= ?", Time.now)
+                      .where("expiration_at >= ?", Time.now)
+                      .where("limit_count > orders_count")
+                      .where.not(id: VoucherOrder.joins(:order).where("order.user": user).select(:voucher_id))
+
+      result = result.where("threshold <= ?", price) unless price.blank?
+      result
     end
 
     def valid?(price)
