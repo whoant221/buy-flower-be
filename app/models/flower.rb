@@ -37,6 +37,8 @@ class Flower < ApplicationRecord
       result = result.order("name ASC") if order_by == 'name_asc'
       result = result.order("name DESC") if order_by == 'name_desc'
     end
+    result = result.order("created_at DESC")
+    
     result
   }
 
