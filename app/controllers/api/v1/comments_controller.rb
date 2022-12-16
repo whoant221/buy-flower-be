@@ -12,13 +12,13 @@ module Api
 
       def create
         authorize flower, policy_class: CommentPolicy
-        CommentService::Client.new(user: current_user).add(flower, comment_params[:content])
+        CommentService::Client.new(user: current_user, flower: flower).add(comment_params)
       end
 
       private
 
       def comment_params
-        params.permit(:content, :flower_id)
+        params.permit(:content, :rank, :flower_id)
       end
 
       def flower

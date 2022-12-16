@@ -49,6 +49,9 @@ vi:
         title: 'Tiêu đề'
       bud:
         name: 'Tên'
+      comment:
+        content: 'Nội dung'
+        rank: 'Xếp hạng'
     errors:
       models:
         user:
@@ -130,7 +133,14 @@ vi:
             threshold:
               greater_than_or_equal_to: 'lớn hơn hoặc bằng 0'
               not_a_number: 'phải là số'
-
+        comment:
+          attributes:
+            rank:
+              less_than_or_equal_to: 'bé hơn hoặc bằng 0'
+              greater_than_or_equal_to: 'lớn hơn hoặc bằng 0'
+              not_a_number: 'phải là số'
+            content:
+              blank: 'không được trống'
       messages:
   #        record_invalid: 'không hợp lệ'
   services:
