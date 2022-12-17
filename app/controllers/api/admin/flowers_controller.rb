@@ -27,7 +27,7 @@ module Api
       end
 
       def update
-        flower = AdminFlowerService::Client.new(params: flower_params, id: params[:id]).update
+        flower = AdminFlowerService::Client.new(params: flower_params, id: params[:id]).update(params[:bud_data])
 
         render 'update', locals: {
           flower: flower

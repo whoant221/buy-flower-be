@@ -22,9 +22,18 @@ module AdminFlowerService
       flower
     end
 
-    def update
-      flower.update!(params)
-      flower
+    def update(bud_data)
+      Flower.transaction do
+        flower.buds.destroy_all
+        bud_data.each do |val|
+          bud = Bud.find_by(id: val[:id])
+          next unless bud
+          FlowerBud.create!(flower: flower, bud: bud, count: val[:count])
+        end
+        flower.update!(params)
+        flower
+      end
+
     rescue Exception
       raise Exceptions::CategoryInvalid, I18n.t('services.admin_flower_service.invalid_category')
     end

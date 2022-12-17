@@ -11,9 +11,8 @@ module Api
 
       def mark_as_processing
         authorize order, :mark_as_processing?
-        order.mark_as_processing
         TransportOrderJob.perform_later(order)
-        
+
         render 'show', locals: {
           order: order
         }, formats: [:json], status: :ok

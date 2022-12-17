@@ -6,11 +6,12 @@ module TransportService
     end
 
     def create
-      resp = create_order
-      order.shipping_ref = resp['data']['order_code']
-      order.save!
-    rescue Exception
-      order.mark_as_pending
+      order.transaction do
+        order.mark_as_processing
+        resp = create_order
+        order.shipping_ref = resp['data']['order_code']
+        order.save!
+      end
     end
 
     private
