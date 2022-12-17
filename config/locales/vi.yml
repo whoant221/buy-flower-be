@@ -175,6 +175,8 @@ vi:
     voucher_service:
       not_exists: 'Mã giảm giá không tồn tại'
       unconditional: 'Voucher không đủ điều kiện để sử dụng'
+    user_service:
+      not_exists: 'Người dùng không tồn tại'
   pundit:
     default: 'Hành động bị giới hạn'
 
