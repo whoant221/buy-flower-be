@@ -16,7 +16,19 @@ module Api
         }, formats: [:json], status: :ok
       end
 
+      def update
+        bud.update!(bud_params)
+        render json: {}, status: :accepted
+      end
+
       private
+
+      def bud
+        @bud ||= Bud.find_by(id: params[:id])
+        raise ActiveRecord::RecordNotFound, I18n.t('controller.concerns.api.v1.bud.not_exists') unless @bud
+
+        @bud
+      end
 
       def bud_params
         params.permit(:name)

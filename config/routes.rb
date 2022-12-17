@@ -64,7 +64,7 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :buds, only: [:create, :index]
+      resources :buds, only: [:create, :index, :update]
 
       resources :users, only: [:index, :create, :update]
 
