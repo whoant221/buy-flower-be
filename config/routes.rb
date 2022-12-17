@@ -66,7 +66,7 @@ Rails.application.routes.draw do
 
       resources :buds, only: [:create, :index]
 
-      resources :users, only: [:index, :create]
+      resources :users, only: [:index, :create, :update]
 
       resources :orders, only: [:index] do
         member do
