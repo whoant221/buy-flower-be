@@ -51,6 +51,7 @@ vi:
         title: 'Tiêu đề'
       bud:
         name: 'Tên'
+        count: 'Số lượng'
       comment:
         content: 'Nội dung'
         rank: 'Xếp hạng'
@@ -81,6 +82,9 @@ vi:
           attributes:
             name:
               taken: 'đã tồn tại'
+            count:
+              greater_than: 'lớn hơn 0'
+              not_a_number: 'phải là số'
         flower:
           attributes:
             name:
