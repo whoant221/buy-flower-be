@@ -31,7 +31,7 @@ module Api
       end
 
       def bud_params
-        params.permit(:name)
+        params.permit(:name, :count)
       end
 
     end
