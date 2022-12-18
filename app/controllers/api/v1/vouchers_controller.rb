@@ -17,6 +17,18 @@ module Api
         }, formats: [:json], status: :ok
       end
 
+      def can_exchange
+        vouchers = voucher_service.can_be_exchange
+        render 'index', locals: {
+          vouchers: vouchers
+        }, formats: [:json], status: :ok
+      end
+
+      def exchange
+        voucher_service.exchange
+        render json: {}, status: :created
+      end
+
       private
 
       def voucher_service

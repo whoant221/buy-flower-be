@@ -16,4 +16,10 @@ class Exceptions
   class TimeInvalid < StandardError; end
 
   class DataInvalid < StandardError; end
+
+  class ExchangeVoucherError < StandardError; end
+
+  class UseVoucherInvalid < StandardError; end
+
+  class NotEnoughPoint < StandardError; end
 end

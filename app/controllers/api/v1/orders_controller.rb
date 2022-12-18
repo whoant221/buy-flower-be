@@ -24,13 +24,16 @@ module Api
           :reason => params[:reason],
           :message => params[:message],
         }
-        order = order_service.create(order_params, additional_data)
-        if params[:code].present? && order.present?
-          OrderService::Order.new(order: order, user: current_user).apply_voucher(voucher_service)
+        ::Order.transaction do
+          new_order = order_service.create(order_params, additional_data)
+          if params[:code].present? && new_order.present?
+            OrderService::Order.new(order: new_order, user: current_user).apply_voucher(voucher_service)
+          end
+          
+          render 'show', locals: {
+            order: new_order
+          }, formats: [:json], status: :ok
         end
-        render 'show', locals: {
-          order: order
-        }, formats: [:json], status: :ok
       end
 
       def show
