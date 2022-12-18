@@ -13,6 +13,9 @@ module Api
         rescue_from Exceptions::ShoppingCartBlank, with: :render_not_acceptable
         rescue_from Exceptions::TimeInvalid, with: :render_not_acceptable
         rescue_from Exceptions::DataInvalid, with: :render_not_acceptable
+        rescue_from Exceptions::ExchangeVoucherError, with: :render_not_acceptable
+        rescue_from Exceptions::UseVoucherInvalid, with: :render_not_acceptable
+        rescue_from Exceptions::NotEnoughPoint, with: :render_not_acceptable
       end
     end
   end

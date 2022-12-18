@@ -20,7 +20,10 @@ module Api
 
       def mark_as_successful
         authorize order, :mark_as_successful?
-        order.mark_as_successful
+        order.transaction do
+          order.mark_as_successful
+          current_user.increment!(:point, 10)
+        end
 
         render 'show', locals: {
           order: order

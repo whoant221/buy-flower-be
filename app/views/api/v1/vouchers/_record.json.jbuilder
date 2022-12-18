@@ -7,3 +7,4 @@ json.max_amount voucher.max_amount
 json.title voucher.title
 json.threshold voucher.threshold
 json.condition_str voucher.render_condition
+json.point voucher.point

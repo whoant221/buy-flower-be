@@ -40,6 +40,8 @@ Rails.application.routes.draw do
       resources :vouchers, only: [:index] do
         collection do
           post :valid_price
+          get 'exchange', to: 'vouchers#can_exchange'
+          post :exchange
         end
       end
 
