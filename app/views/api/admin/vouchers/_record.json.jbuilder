@@ -9,3 +9,4 @@ json.title voucher.title
 json.threshold voucher.threshold
 json.orders_count voucher.orders_count
 json.condition_str voucher.render_condition
+json.point voucher.point
