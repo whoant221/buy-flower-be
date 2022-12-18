@@ -23,14 +23,14 @@ module Api
       def destroy
         authorize voucher, :destroy?
         voucher.destroy!
-        
+
         render json: {}, status: :ok
       end
 
       private
 
       def voucher_params
-        params.permit(:code, :content, :discount, :effective_at, :expiration_at, :limit_count, :max_amount, :threshold, :title)
+        params.permit(:code, :content, :discount, :effective_at, :expiration_at, :limit_count, :max_amount, :threshold, :title, :point)
       end
 
       def filter_voucher(filter)

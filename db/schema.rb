@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_12_17_163552) do
+ActiveRecord::Schema.define(version: 2022_12_18_184622) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -113,6 +113,16 @@ ActiveRecord::Schema.define(version: 2022_12_17_163552) do
     t.index ["user_id"], name: "index_shopping_carts_on_user_id"
   end
 
+  create_table "user_vouchers", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "voucher_id", null: false
+    t.string "state"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_user_vouchers_on_user_id"
+    t.index ["voucher_id"], name: "index_user_vouchers_on_voucher_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email"
     t.string "password_digest"
@@ -121,6 +131,7 @@ ActiveRecord::Schema.define(version: 2022_12_17_163552) do
     t.string "address"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "point"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
@@ -146,6 +157,7 @@ ActiveRecord::Schema.define(version: 2022_12_17_163552) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "orders_count"
+    t.integer "point"
     t.index ["code"], name: "index_vouchers_on_code"
   end
 
@@ -160,6 +172,8 @@ ActiveRecord::Schema.define(version: 2022_12_17_163552) do
   add_foreign_key "orders", "users"
   add_foreign_key "shopping_carts", "flowers"
   add_foreign_key "shopping_carts", "users"
+  add_foreign_key "user_vouchers", "users"
+  add_foreign_key "user_vouchers", "vouchers"
   add_foreign_key "voucher_orders", "orders"
   add_foreign_key "voucher_orders", "vouchers"
 end

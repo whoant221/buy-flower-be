@@ -2,12 +2,15 @@ class Voucher < ApplicationRecord
   has_many :voucher_orders
   has_many :orders, through: :voucher_orders
 
+  has_many :user_vouchers
+  has_many :users, through: :user_vouchers
+
   before_validation :set_default_values
 
   validates :discount, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }
   validates_uniqueness_of :code
   validates_presence_of :content, :effective_at, :expiration_at
-  validates_numericality_of :limit_count, :threshold, :max_amount, :greater_than_or_equal_to => 0
+  validates_numericality_of :limit_count, :threshold, :max_amount, :point, :greater_than_or_equal_to => 0
 
   scope :filter_valid, -> (price) {
     result = where("effective_at <= ?", Time.now).where("expiration_at >= ?", Time.now).where("limit_count > orders_count")
@@ -48,6 +51,7 @@ class Voucher < ApplicationRecord
 
   def set_default_values
     self.orders_count = 0
+    self.point ||= 0
   end
 
 end

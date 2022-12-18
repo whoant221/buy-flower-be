@@ -49,6 +49,7 @@ vi:
         max_amount: 'Số tiền tối đa có thể giảm'
         threshold: 'Ngưỡng áp dụng'
         title: 'Tiêu đề'
+        point: 'Điểm để đổi'
       bud:
         name: 'Tên'
         count: 'Số lượng'
@@ -139,6 +140,9 @@ vi:
             threshold:
               greater_than_or_equal_to: 'lớn hơn hoặc bằng 0'
               not_a_number: 'phải là số'
+            point:
+              greater_than_or_equal_to: 'lớn hơn hoặc bằng 0'
+              not_a_number: 'phải là số'
         comment:
           attributes:
             rank:
@@ -181,6 +185,9 @@ vi:
     voucher_service:
       not_exists: 'Mã giảm giá không tồn tại'
       unconditional: 'Voucher không đủ điều kiện để sử dụng'
+      exchange_error: 'Không thể đổi voucher này'
+      invalid_use: 'Không thể sử dụng voucher này'
+      not_enough_point: 'Số điểm không đủ'
     user_service:
       not_exists: 'Người dùng không tồn tại'
   pundit:
