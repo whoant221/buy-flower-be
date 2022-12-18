@@ -22,7 +22,7 @@ module Api
         authorize order, :mark_as_successful?
         order.transaction do
           order.mark_as_successful
-          current_user.increment!(:point, 10)
+          User.find_by(id: order.user).increment!(:point, 10)
         end
 
         render 'show', locals: {
