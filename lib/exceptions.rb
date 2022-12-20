@@ -22,4 +22,6 @@ class Exceptions
   class UseVoucherInvalid < StandardError; end
 
   class NotEnoughPoint < StandardError; end
+
+  class NotEnoughBud < StandardError; end
 end

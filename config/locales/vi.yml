@@ -182,6 +182,7 @@ vi:
       shopping_cart_blank: 'Giỏ hàng rỗng'
       time_invalid: 'Thời gian gửi hàng không hợp lệ'
       data_invalid: 'Dữ liệu nhập vào không hợp lệ'
+      not_enough_bud: 'Không đủ búp hoa ở %{name}'
     voucher_service:
       not_exists: 'Mã giảm giá không tồn tại'
       unconditional: 'Voucher không đủ điều kiện để sử dụng'

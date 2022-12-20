@@ -7,7 +7,7 @@ module OrderService
 
     def apply_voucher(voucher_service)
       sale_price = voucher_service.sale_price(order.original_price)
-      raise ActiveRecord::RecordInvalid, I18n.t('services.voucher_service.unconditional') if sale_price == 0
+      raise ActiveRecord::RecordNotFound, I18n.t('services.voucher_service.unconditional') if sale_price == 0
       ::Order.transaction do
         voucher_service.apply_order(order)
         order.sale_price = order.original_price - sale_price
