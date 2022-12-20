@@ -41,7 +41,7 @@ module TransportService
         to_address: order.receive_address,
         to_ward_name: 'Phường 12',
         to_district_name: 'Quận 10',
-        to_province_name: 'TP Hồ Chí Minh',
+        to_province_name: order.receive_address,
         cod_amount: 0,
         content: order.additional_data['reason'],
         weight: 200,
