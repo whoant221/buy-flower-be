@@ -16,6 +16,7 @@ module Api
         rescue_from Exceptions::ExchangeVoucherError, with: :render_not_acceptable
         rescue_from Exceptions::UseVoucherInvalid, with: :render_not_acceptable
         rescue_from Exceptions::NotEnoughPoint, with: :render_not_acceptable
+        rescue_from Exceptions::NotEnoughBud, with: :render_not_acceptable
       end
     end
   end

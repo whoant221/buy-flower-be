@@ -16,8 +16,18 @@ module TransportService
 
     def cancel
       order.transaction do
+        order.lock!
+        return if order.cancelled?
         order.mark_as_cancelled
-        cancel_order
+        order.flowers.each do |flower|
+          order_detail = OrderDetail.where(flower: flower).where(order: order).take
+          flower.buds.each do |bud|
+            flower_bud = FlowerBud.find_by(flower: flower, bud: bud)
+            bud.count += flower_bud.count * order_detail.amount
+            bud.save!
+          end
+        end
+        cancel_order if order.processing?
       end
     end
 

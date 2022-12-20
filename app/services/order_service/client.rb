@@ -9,19 +9,26 @@ module OrderService
       raise Exceptions::ShoppingCartBlank, I18n.t('services.order_service.shopping_cart_blank') if shopping_carts.count == 0
 
       ShoppingCart.transaction do
-        ::Order.transaction do
-          order = user.orders.create!(params)
-          shopping_carts.each do |key|
-            flower = Flower.find_by(id: key[:flower_id])
-            next if flower.blank?
-            OrderDetail.create!(amount: key[:amount], flower: flower, price: flower[:sale_price], order: order)
+        order = user.orders.create!(params)
+        shopping_carts.each do |key|
+          flower = Flower.find_by(id: key[:flower_id])
+          next if flower.blank?
+
+          flower.buds.each do |bud|
+            flower_bud = FlowerBud.find_by(flower: flower, bud: bud)
+            raise Exceptions::NotEnoughBud, I18n.t('services.order_service.not_enough_bud', name: flower.name) if flower_bud.count * key[:amount] > bud.count
+            bud.count -= flower_bud.count * key[:amount]
+            bud.save!
+
           end
-          order.original_price = order.price
-          order.additional_data = additional_data
-          shopping_cart_service.destroy_all
-          order.save!
-          order
+
+          OrderDetail.create!(amount: key[:amount], flower: flower, price: flower[:sale_price], order: order)
         end
+        order.original_price = order.price
+        order.additional_data = additional_data
+        shopping_cart_service.destroy_all
+        order.save!
+        order
       end
 
     end
