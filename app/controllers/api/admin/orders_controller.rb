@@ -31,8 +31,12 @@ module Api
       end
 
       def mark_as_cancelled
-        authorize order, :mark_as_cancelled?
-        order.mark_as_cancelled
+        authorize order, :mark_as_cancelled_by_admin?
+        if order.processing?
+          TransportCancelOrderJob.perform_later(order)
+        else
+          order.mark_as_cancelled
+        end
 
         render 'show', locals: {
           order: order
