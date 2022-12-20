@@ -6,6 +6,7 @@ module ReportService
         Order.where(state: Order::SUCCESSFUL)
              .group("date_trunc('month', created_at)")
              .select("date_trunc('month', created_at) as month, sum(sale_price) as sum")
+          .order("month ASC")
              .map { |o|  [o.month.strftime("%m/%Y"), o.sum]}
 
       end
