@@ -9,7 +9,7 @@ module Api
       private
 
       def current_user
-        @current_user ||= ::Admin.find_by(username: 'admin')
+        @current_user ||= ::Admin.find_by_username('admin')
       end
 
     end

@@ -14,9 +14,37 @@ module TransportService
       end
     end
 
+    def cancel
+      order.transaction do
+        order.mark_as_cancelled
+        cancel_order
+      end
+    end
+
     private
 
     attr_reader :order
+
+    def cancel_order
+      body = {
+        order_codes: [order.shipping_ref]
+      }
+
+      puts body
+      resp = Timeout::timeout(30) do
+        HTTParty.post(
+          'https://dev-online-gateway.ghn.vn/shiip/public-api/v2/switch-status/cancel',
+          body: body.to_json,
+          headers: headers
+        )
+      end
+
+      if resp.success?
+        JSON.parse(resp.body)
+      else
+        raise StandardError, "Body #{resp.body} has code #{resp.code}"
+      end
+    end
 
     def create_order
       body = {
@@ -41,7 +69,7 @@ module TransportService
         to_address: order.receive_address,
         to_ward_name: 'Phường 12',
         to_district_name: 'Quận 10',
-        to_province_name: order.receive_address,
+        to_province_name: 'TP Hồ Chí Minh',
         cod_amount: 0,
         content: order.additional_data['reason'],
         weight: 200,

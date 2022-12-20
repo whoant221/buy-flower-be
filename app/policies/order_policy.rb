@@ -15,4 +15,8 @@ class OrderPolicy < ApplicationPolicy
   def mark_as_cancelled?
     @record.pending?
   end
+
+  def mark_as_cancelled_by_admin?
+    @record.pending? || @record.processing?
+  end
 end
