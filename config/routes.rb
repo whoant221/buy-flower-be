@@ -78,6 +78,14 @@ Rails.application.routes.draw do
         end
       end
 
+      resources :reports do
+        collection do
+          get :analyze_access_page
+          get :analyze_profit
+          get :analyze_product
+        end
+      end
+
     end
   end
 
