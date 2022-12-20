@@ -6,6 +6,8 @@ module Api
       include ExceptionConcern
       include RenderConcern
 
+      before_action :analyze_access
+
       private
 
       def current_user
@@ -30,6 +32,14 @@ module Api
 
       def required_login
         raise Exceptions::Unauthorized, I18n.t('controller.concerns.api.v1.render_concern.unauthorized') unless signed_in?
+      end
+
+      def analyze_access
+        ReportService::Access.analyze_access_per_day(client_ip)
+      end
+
+      def client_ip
+        @client_ip ||= request.env['HTTP_X_FORWARDED_FOR'].to_s.split(',').first.presence || request.remote_ip
       end
 
     end
